@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1.0">
+    <link rel="stylesheet"href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css"/>
+    <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+    <title>Page Gestionnaire</title>
+    <!-- Montserrat Font -->
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@100;200;300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="dashboardGest.css">
+  </head>
+  <body>
+    <div class="grid-container">
+      <!-- Entete -->
+      <header class="header">
+        <div class="menu-icon" onclick="openSidebar()">
+          <span class="material-icons-outlined">menu</span>
+        </div>
+        <div class="header-left">
+        </div>
+        <div class="header-right">
+          <span><i class='bx bx-bell'></i></span>
+          <span><i class='bx bx-envelope'></i></span>
+          <span><i class='bx bx-user'></i></span>
+        </div>
+      </header>
+      <!-- Fin d'Entete -->
+
+      <!-- menu -->
+      <aside id="sidebar"> 
+              <div class="sidebar-title">
+                <div class="sidebar-brand">
+                    <img src="logo-naftal.png" alt="">
+                </div>
+                    <span class="material-icons-outlined" onclick="closeSidebar()">close</span>
+              </div>
+
+        <ul class="sidebar-list">
+          <li class="sidebar-list-item">
+            <a href="TB" target="_blank">
+              <i class='bx bxs-dashboard icon'></i>
+                  <span class="text nav-text">Tableau de Bord</span>
+            </a>
+          </li>
+          <li class="sidebar-list-item">
+            <a href="demandeGest.php" target="_blank">
+              <i class='bx bx-git-pull-request icon'></i>
+                  <span class="text nav-text">Demande de véhicule</span>
+            </a>
+          </li>
+          <li class="sidebar-list-item">
+            <a href="#BC" target="_blank">
+              <i class='bx bx-receipt icon'></i>
+                    <span class="text nav-text">Bon de Commande</span>
+            </a>
+          </li>
+          <li class="sidebar-list-item">
+            <a href="Ordremiss.php" target="_blank">
+              <i class='bx bx-list-check icon'></i>
+                    <span class="text nav-text">Ordres de Mission</span>
+            </a>
+          </li>
+          <li class="sidebar-list-item">
+            <a href="suiviv.php" target="_blank">
+              <i class='bx bxs-car-mechanic icon'></i>
+                    <span class="text nav-text">Suivi de Véhicule</span>
+            </a>
+          </li>
+          <li class="sidebar-list-item">
+            <a href="DI" target="_blank">
+              <i class='bx bx-wrench icon'></i>
+                    <span class="text nav-text">Demande d'interventions</span>
+            </a>
+          </li>
+          <li class="sidebar-list-item">
+            <a href="RA" target="_blank">
+              <i class='bx bxs-car-crash icon'></i>
+                    <span class="text nav-text">Rappor d'Accident</span>
+            </a>
+          </li>
+          <li class="sidebar-list-item">
+            <a href="parametre" target="_blank">
+              <i class='bx bx-cog icon' ></i>
+                <span class="text nav-text">Paramétres</span>
+            </a>
+          </li>
+        </ul>
+      </aside>
+      <!-- fin de menu -->
+
+      <!-- Main -->
+      <!--Table de bord-->
+      <main class="main-container" style="display: none;">
+        <div class="main-cards">
+
+          <div class="card">
+            <div class="card-inner">
+              <h3>PRODUCTS inventory_2</h3>
+            </div>
+            <h1>249</h1>
+          </div>
+
+          <div class="card">
+            <div class="card-inner">
+              <h3>CATEGORIES category</h3> 
+            </div>
+            <h1>25</h1>
+          </div>
+
+          <div class="card">
+            <div class="card-inner">
+              <h3>CUSTOMERS groups</h3>
+            </div>
+            <h1>1500</h1>
+          </div>
+
+          <div class="card">
+            <div class="card-inner">
+              <h3>ALERTS notification_important</h3>
+            </div>
+            <h1>56</h1>
+          </div>
+
+        </div>
+
+        <div class="charts">
+
+          <div class="charts-card">
+            <h2 class="chart-title">Top 5 Products</h2>
+            <div id="bar-chart"></div>
+          </div>
+
+          <div class="charts-card">
+            <h2 class="chart-title">Purchase and Sales Orders</h2>
+            <div id="area-chart"></div>
+          </div>
+
+        </div>
+      </main>
+      <!--fin de tableau de bord-->
+
+
+    <!-- Scripts -->
+    <!--JQUERY-->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <!-- ApexCharts -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/apexcharts/3.35.5/apexcharts.min.js"></script>
+    <!-- Custom JS -->
+    <script src="dashboardGest.js"></script>
+
+<script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
+  </body>
+</html>
