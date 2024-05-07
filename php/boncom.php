@@ -1,75 +1,4 @@
-<?php
-$servername = "localhost";
-$username = "root";
-$password = "";
-$dbname = "parc_auto";
-
-try {
-    // Connexion à la base de données
-    $conn = new PDO("mysql:host=$servername;dbname=$dbname", $username, $password);
-    $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-} catch (PDOException $e) {
-    showErrorAlert("La connexion a échoué : " . $e->getMessage());
-}
-
-if (isset($_POST['Enregistrer'])) {
-    $matricule = $_POST['matricule'];
-    $nom_prenom = $_POST['nom_prenom'];
-    $adress_admin = $_POST['adress_admin'];
-    $matricule_v = $_POST['matricule_v'];
-    $date_dep = $_POST['date_dep'];
-    $date_ret = $_POST['date_ret'];
-    $raison = $_POST['raison'];
-
-    if (empty($matricule) || empty($nom_prenom) || empty($adress_admin) || empty($matricule_v)
-        || empty($date_dep) || empty($date_ret) || empty($raison)) {
-        showErrorAlert("Veuillez remplir tous les champs.");
-    } else {
-            // Le matricule et le véhicule existent, donc vous pouvez l'insérer dans la table ordre_mission
-            try {
-                // Préparation et exécution de la requête d'insertion
-                $sql = "INSERT INTO ordre_mission (matricule, nom_prenom, adress_admin, matricule_v, date_dep, date_ret, raison) 
-                        VALUES (:matricule, :nom_prenom, :adress_admin, :matricule_v, :date_dep, :date_ret, :raison)";
-                $stmt = $conn->prepare($sql);
-                $stmt->bindParam(':matricule', $matricule);
-                $stmt->bindParam(':nom_prenom', $nom_prenom);
-                $stmt->bindParam(':adress_admin', $adress_admin);
-                $stmt->bindParam(':matricule_v', $matricule_v);
-                $stmt->bindParam(':date_dep', $date_dep);
-                $stmt->bindParam(':date_ret', $date_ret);
-                $stmt->bindParam(':raison', $raison);
-                $stmt->execute();
-                showSuccessAlert("L'Ordre de mission a été enregistré avec succès.");
-            } catch (PDOException $e) {
-                showErrorAlert("Une erreur est survenue lors de l'enregistrement : " . $e->getMessage());
-            }
-        } 
-    }   
-
-        // Requête pour récupérer les données de la table employe
-        $sql_emp = "SELECT matricule FROM employe";
-        $result_emp = $conn->query($sql_emp);
-
-function showErrorAlert($message) {
-    echo '<script>Swal.fire("Erreur", "' . $message . '", "error")</script>';
-}
-
-function showSuccessAlert($message) {
-    echo '<script>Swal.fire("Succès", "' . $message . '", "success")</script>';
-}
-if(isset($_POST['matricule'])) {
-    $matricule = $_POST['matricule'];
-    // Effectuez une requête SQL pour récupérer les informations du chauffeur et du véhicule en fonction du matricule
-    // Assurez-vous d'obtenir le nom du chauffeur et le véhicule associé au matricule sélectionné
-    
-    // Ensuite, encodez les informations from JSON 
-    $info_chauffeur = array("nom" => $nom, "prenom" => $prenom); // Remplacez par les données réelles
-    echo json_encode($info_chauffeur);
-    exit; // Assurez-vous de terminer le script après avoir envoyé la réponse JSON
-}
-
-
-?><!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="utf-8">
@@ -81,7 +10,8 @@ if(isset($_POST['matricule'])) {
     <!-- Montserrat Font -->
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@100;200;300;400;500;600;700;800;900&display=swap" rel="stylesheet">
     <!-- Custom CSS -->
-    <link rel="stylesheet" href="../css/Ordremiss.css">
+    <link rel="stylesheet" href="../css/boncom.css">
+
 </head>
 <body>
     <div class="grid-container">
@@ -104,7 +34,7 @@ if(isset($_POST['matricule'])) {
         <aside id="sidebar"> 
             <div class="sidebar-title">
                 <div class="sidebar-brand">
-                    <img src="logo-naftal.png" alt="">
+                    <img src="../pictures/logo-naftal.png" alt="">
                 </div>
                 <span class="material-icons-outlined" onclick="closeSidebar()">close</span>
             </div>
@@ -162,25 +92,30 @@ if(isset($_POST['matricule'])) {
         </aside>
         <main class="main-container">    
             <form method="post" action="">
-                <h2>Ordre de Mission</h2>
+                <h1>Bon de commande </h1>
+                <h3>Veuillez Remplir Tous les champs!</h3>
                 <div class="input">
-                <label>Nom et Prénom  :<input type="text" name="nom_prenom" id="nom_prenom"></label>
+                <?php
+               // Assurez-vous que $nom et $prenom sont définis
+               $nom = isset($nom) ? $nom : '';
+               $prenom = isset($prenom) ? $prenom : '';
+                ?>
+                <label>Nom et Prénom  :<input type="text" name="nom_prenom" id="nom_prenom" value="<?php echo isset($nom) ? $nom . ' ' . $prenom : ''; ?>"></label>
                 <label>Matricule  :
                 <select autocomplete="off"type="number" name="matricule">
-                <?php while($row = $result_emp->fetch(PDO::FETCH_ASSOC))  { ?>
-                    <option><?php echo $row ['matricule']?></option>
-                    <?php } ?>
                 </select></label>
                 </div>
                 <div class="input">
                     <label>adresse administratif :<input type="text" name="adress_admin" id="adress_admin"></label>
-                    <label>Fonction :<input type="text" name="adress_admin"></label>
+                    <label>Fonction:<input type="text" name="adress_admin"></label>
                 </div>
                 <div class="input">
                     <label>Moyen de déplacement:<input type="text" name="matricule_v"></label>
-                    <label>Se rend à:<input type="text" name="emplacement"></label>
+                    <label>Déstination:<input type="text" name="emplacement"></label>
                 </div>
-                <label>Motif:<input type="text" name="raison" id="raison"></label>
+                <div class="motif">
+                <label>Motif:</label><input type="text" name="raison" id="raison">
+                </div>
                 <div class="input">
                     <label>Date de déplacement:<input type="date" name="date_dep"></label>
                     <label>Date De Retour:<input type="date" name="date_ret"></label>
@@ -199,7 +134,7 @@ if(isset($_POST['matricule'])) {
     <!-- ApexCharts -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/apexcharts/3.35.5/apexcharts.min.js"></script>
     <!-- Custom JS -->
-    <script src="../js/Ordremiss.js"></script>
+    <script src="../js/boncom.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
 </html>

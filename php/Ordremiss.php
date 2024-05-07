@@ -12,27 +12,27 @@ try {
     showErrorAlert("La connexion a échoué : " . $e->getMessage());
 }  
 
-        // Requête pour récupérer les données de la table employe
-        $sql_mat = "SELECT matricule FROM employe";
-        $result_mat = $conn->query($sql_mat);
+// Requête pour récupérer les données de la table employe
+$sql_mat = "SELECT matricule FROM employe";
+$result_mat = $conn->query($sql_mat);
 
-
-        // Traitement du formulaire
-    if(isset($_POST['matricule'])) {
+// Traitement du formulaire
+if(isset($_POST['matricule'])) {
     // Récupération du matricule sélectionné
     $matricule = $_POST['matricule'];
 
     // Requête SQL pour récupérer les informations associées au matricule
-    $query = "SELECT nom,prenom FROM employe WHERE matricule = :matricule";
-    $statement = $pdo->prepare($query);
+    $query = "SELECT nom, prenom FROM employe WHERE matricule = :matricule";
+    $statement = $conn->prepare($query);
     $statement->bindParam(':matricule', $matricule);
     $statement->execute();
     
-     // Récupération des informations dans des variables
-     $row = $statement->fetch(PDO::FETCH_ASSOC);
-     $nom = $row['nom'];
-     $prenom = $row['prenom'];
-    }
+    // Récupération des informations dans des variables
+    $row = $statement->fetch(PDO::FETCH_ASSOC);
+    $nom = $row['nom'];
+    $prenom = $row['prenom'];
+}
+
 function showErrorAlert($message) {
     echo '<script>Swal.fire("Erreur", "' . $message . '", "error")</script>';
 }
@@ -40,7 +40,10 @@ function showErrorAlert($message) {
 function showSuccessAlert($message) {
     echo '<script>Swal.fire("Succès", "' . $message . '", "success")</script>';
 }
-?><!DOCTYPE html>
+?>
+
+
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="utf-8">
@@ -53,6 +56,7 @@ function showSuccessAlert($message) {
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@100;200;300;400;500;600;700;800;900&display=swap" rel="stylesheet">
     <!-- Custom CSS -->
     <link rel="stylesheet" href="../css/Ordremiss.css">
+
 </head>
 <body>
     <div class="grid-container">
@@ -136,7 +140,12 @@ function showSuccessAlert($message) {
                 <h1>Ordre de Mission</h1>
                 <h3>Veuillez Remplir Tous les champs!</h3>
                 <div class="input">
-                <label>Nom et Prénom  :<input type="text" name="nom_prenom" id="nom_prenom" value="<?php echo $nom . ' ' . $prenom; ?>"></label>
+                <?php
+               // Assurez-vous que $nom et $prenom sont définis
+               $nom = isset($nom) ? $nom : '';
+               $prenom = isset($prenom) ? $prenom : '';
+                ?>
+                <label>Nom et Prénom  :<input type="text" name="nom_prenom" id="nom_prenom" value="<?php echo isset($nom) ? $nom . ' ' . $prenom : ''; ?>"></label>
                 <label>Matricule  :
                 <select autocomplete="off"type="number" name="matricule">
                 <?php while($row = $result_mat->fetch(PDO::FETCH_ASSOC))  { ?>
@@ -146,7 +155,7 @@ function showSuccessAlert($message) {
                 </div>
                 <div class="input">
                     <label>adresse administratif :<input type="text" name="adress_admin" id="adress_admin"></label>
-                    <label>Fonction :<input type="text" name="adress_admin"></label>
+                    <label>Fonction:<input type="text" name="adress_admin"></label>
                 </div>
                 <div class="input">
                     <label>Moyen de déplacement:<input type="text" name="matricule_v"></label>
@@ -178,7 +187,7 @@ function showSuccessAlert($message) {
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
 </html>
 <?php
-
+ echo "Matricule sélectionné : " . $matricule; 
 if (isset($_POST['Enregistrer'])) {
     $matricule = $_POST['matricule'];
     $nom_prenom = $_POST['nom_prenom'];
@@ -187,6 +196,7 @@ if (isset($_POST['Enregistrer'])) {
     $date_dep = $_POST['date_dep'];
     $date_ret = $_POST['date_ret'];
     $raison = $_POST['raison'];
+
 
     if (empty($matricule) || empty($nom_prenom) || empty($adress_admin) || empty($matricule_v)
         || empty($date_dep) || empty($date_ret) || empty($raison)) {
@@ -212,4 +222,18 @@ if (isset($_POST['Enregistrer'])) {
             }
         } 
     } 
-?>
+    if ($statement->rowCount() > 0) {
+        // Récupération des informations dans des variables
+        $row = $statement->fetch(PDO::FETCH_ASSOC);
+        $nom = $row['nom'];
+        $prenom = $row['prenom'];
+        $adresse_admin = $row['adresse_admin'];
+    } else {
+        showErrorAlert("Aucune information trouvée pour ce matricule.");
+    }
+    $adress_admin = isset($_POST['adress_admin']) ? $_POST['adress_admin'] : '';
+$matricule_v = isset($_POST['matricule_v']) ? $_POST['matricule_v'] : '';
+$date_dep = isset($_POST['date_dep']) ? $_POST['date_dep'] : '';
+$date_ret = isset($_POST['date_ret']) ? $_POST['date_ret'] : '';
+$raison = isset($_POST['raison']) ? $_POST['raison'] : '';
+    ?>
