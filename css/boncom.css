@@ -112,9 +112,13 @@ body {
       margin:8px;
       font-size: 20px;
   }
+ 
+ 
+
+ 
+ 
   
   
-  /* ---------- MAIN ---------- */
   
   .main-container {
     grid-area: main;
@@ -123,15 +127,22 @@ body {
     color:#004c85;
   }
    
-form{
-    background-color:white;
+ form {
+    background-color: white;
     border-radius: 10px;
-    margin:30px;
+    justify-content: center; /* Centrer verticalement les enfants dans le conteneur */
+    margin: 30px auto; /* Centrer le formulaire horizontalement */
     padding: 60px;
-}
+    width: 700px; /* Définir une largeur fixe pour le formulaire */
+  }
 .input{
-display:flex;
-justify-content: space-between;
+
+ display: flex; 
+ flex-direction: column;
+ justify-content: space-between;
+ margin-bottom: 20px; 
+ flex-direction: column; /* Aligner les éléments verticalement */
+ width: 100%;
 }
 
 select{
@@ -143,6 +154,7 @@ select{
 }
 input{
     width:200px;
+  
     font-size:20px;
     background-color: #dde6ed;
     margin:10px;
@@ -150,26 +162,11 @@ input{
 }
 label{
   font-weight: 700;
+  
 }
-#nom_prenom{
-  position: relative;
-  left: 53px;
-}
-#adress_admin{
-  position: relative;
-  left: 10px;
-}
-.motif{
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
 
-  width: 100%;
 
-}
-.motif input{
-  width:100%;
-}
+
 button{
   background-color: #4CAF50;
   margin-top: 10px;
@@ -194,6 +191,7 @@ footer{
 form h3{
   color: crimson;
 }
+
 /* Styles spécifiques à l'impression */
 @media print {
   /* Masquer l'en-tête et le pied de page */

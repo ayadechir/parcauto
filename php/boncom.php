@@ -1,3 +1,17 @@
+<?php
+$servername = "localhost";
+$username = "root";
+$password = "";
+$dbname = "parc_auto";
+
+try {
+    // Connexion à la base de données
+    $conn = new PDO("mysql:host=$servername;dbname=$dbname", $username, $password);
+    $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+} catch (PDOException $e) {
+    showErrorAlert("La connexion a échoué : " . $e->getMessage());
+}  
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -95,35 +109,47 @@
                 <h1>Bon de commande </h1>
                 <h3>Veuillez Remplir Tous les champs!</h3>
                 <div class="input">
-                <?php
-               // Assurez-vous que $nom et $prenom sont définis
-               $nom = isset($nom) ? $nom : '';
-               $prenom = isset($prenom) ? $prenom : '';
-                ?>
-                <label>Nom et Prénom  :<input type="text" name="nom_prenom" id="nom_prenom" value="<?php echo isset($nom) ? $nom . ' ' . $prenom : ''; ?>"></label>
-                <label>Matricule  :
-                <select autocomplete="off"type="number" name="matricule">
-                </select></label>
-                </div>
-                <div class="input">
-                    <label>adresse administratif :<input type="text" name="adress_admin" id="adress_admin"></label>
-                    <label>Fonction:<input type="text" name="adress_admin"></label>
-                </div>
-                <div class="input">
-                    <label>Moyen de déplacement:<input type="text" name="matricule_v"></label>
-                    <label>Déstination:<input type="text" name="emplacement"></label>
-                </div>
-                <div class="motif">
-                <label>Motif:</label><input type="text" name="raison" id="raison">
-                </div>
-                <div class="input">
-                    <label>Date de déplacement:<input type="date" name="date_dep"></label>
-                    <label>Date De Retour:<input type="date" name="date_ret"></label>
-                </div>
-                <footer>
+                   <div class="input">
+                     <label>Numéro de DI:<input type="number" id="num" name="num"></label>
+                     <label>Unité Naftal:<input type="number" id="unite_naftal" name="unite_naftal"></label>
+                  </div>
+                  <div class="input">
+                     <label>Numéro de Magasin:<input type="number" id="n_magasin" name="n_magasin"></label>
+                     <label> Date de BC :<input type="date" id="date_bc" name="date_bc"></label>
+                  </div>
+
+                  <div class="input">
+                     <label>Code Article:<input type="number" id="codear" name="codear"></label>
+                     <label>Déstination: <input type="text" id="designation" name="designation"></label>
+                  </div>
+                  
+                  <div class="input">
+                     <label>Quantité Demandée:<input type="number" id="quantite_dem" name="quantite_dem"><br></label>
+                     <label>Quantité livrée:<input type="number" id="quantite_liv" name="quantite_liv"></label>
+                  </div>
+                  <div class="input">
+                     <label>Observation :<input type="text" id="observation" name="observation"><br></label>
+                    <label>Numéro bon de sortie :<input type="number" id="n_bonsortie" name="n_bonsortie"><br></label>
+                  </div>
+                  <div class="input">
+                     <label>Date de livraison :<input type="date" id="date_livraison" name="date_livraison"><br></label>
+                    
+                  </div>
+                
+ 
+                 
+
+                  
+
+                 
+
+                 
+                 
+
+                  <footer>
                     <button type="submit" name="Enregistrer">Enregistrer</button>
                     <button onclick="imprimerPage()">Imprimer</button>
-                </footer>
+                 </footer>
             </form>   
         </main>
     </div>
