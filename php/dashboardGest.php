@@ -12,13 +12,25 @@ try {
     $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 
 
-    $sqlt = "SELECT COUNT(*) as total_elements FROM demande_v WHERE flag = 0";
+    $sqlt = "SELECT COUNT(*) as total_elements FROM demande_v WHERE flag = 1";
     $resultt = $pdo->query($sqlt);
     $rowt = $resultt->fetch(PDO::FETCH_ASSOC);
+
+    $sqltO = "SELECT COUNT(*) as total_or FROM ordre_mission";
+    $resultO = $pdo->query($sqltO);
+    $rowO = $resultO->fetch(PDO::FETCH_ASSOC);
+
+    $requete = $pdo->prepare("SELECT COUNT(*) AS nombre_de_lignes FROM véhicule WHERE vidange >= seuil_v OR chaine >= seuil_pch");
+    $requete->execute();
+    
+    // Récupérer le nombre de lignes
+    $resultat = $requete->fetch(PDO::FETCH_ASSOC);
+    $nombreDeLignes = $resultat['nombre_de_lignes'];
     } catch(PDOException $e) {
     // En cas d'erreur de connexion
     die("La connexion a échoué: " . $e->getMessage());
     }
+  
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -27,7 +39,7 @@ try {
     <meta name="viewport" content="width=device-width,initial-scale=1.0">
     <link rel="stylesheet"href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css"/>
     <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
-    <script src="dashboardGest.js"></script>
+    <script src="../js/dashboardGest.js"></script>
     <title>Page Gestionnaire</title>
     <!-- Montserrat Font -->
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@100;200;300;400;500;600;700;800;900&display=swap" rel="stylesheet">
@@ -44,9 +56,7 @@ try {
         <div class="header-left">
         </div>
         <div class="header-right">
-          <span><i class='bx bx-bell'></i></span>
-          <span><i class='bx bx-envelope'></i></span>
-          <span><i class='bx bx-user'></i></span>
+        <img src="../pictures/logo-naftal.png" alt="">
         </div>
       </header>
       <!-- Fin d'Entete -->
@@ -92,21 +102,9 @@ try {
             </a>
           </li>
           <li class="sidebar-list-item">
-            <a href="DI" target="_blank">
-              <i class='bx bx-wrench icon'></i>
-                    <span class="text nav-text">Demande d'interventions</span>
-            </a>
-          </li>
-          <li class="sidebar-list-item">
             <a href="RA" target="_blank">
               <i class='bx bxs-car-crash icon'></i>
-                    <span class="text nav-text">Rappor d'Accident</span>
-            </a>
-          </li>
-          <li class="sidebar-list-item">
-            <a href="parametre" target="_blank">
-              <i class='bx bx-cog icon' ></i>
-                <span class="text nav-text">Paramétres</span>
+                    <span class="text nav-text">Rapport d'Accident</span>
             </a>
           </li>
         </ul>
@@ -120,52 +118,25 @@ try {
 
           <div class="card">
             <div class="card-inner">
-              <h1>Demande de véhicule : <?php echo $rowt['total_elements']?></h1>
+              <h1>Demande de véhicule Reçu: <?php echo $rowt['total_elements']?></h1>
               <h1></h1>
             </div>
           </div>
 
           <div class="card">
             <div class="card-inner">
-            <h1>Chronomètre d'un mois</h1>
-            <p id="temps-restant"></p>
-            <script>
-            // Démarrer le chronomètre lorsque la page est chargée
-            window.onload = demarrerChronometre;
-          </script> 
+            <h1>Ordres Missions Efféctue: <?php echo $rowO['total_or']?></h1>
+            <p id="compte-a-rebours"></p>
             
             </div>
             <h1></h1>
           </div>
 
           <div class="card">
-            <div class="card-inner">
-              <h3></h3>
-            </div>
-            <h1></h1>
-          </div>
-
-          <div class="card">
-            <div class="card-inner">
-              <h3></h3>
-            </div>
-            <h1></h1>
-          </div>
-
+          <h1>Nombre de Demande d'intervention a effectuer :<?php echo $nombreDeLignes?></h1>
         </div>
-
-        <div class="charts">
-
-          <div class="charts-card">
-            <h2 class="chart-title"></h2>
-            <div id="bar-chart"></div>
-          </div>
-
-          <div class="charts-card">
-            <h2 class="chart-title"></h2>
-            <div id="area-chart"></div>
-          </div>
-
+        </div>
+       
         </div>
       </main>
       <!--fin de tableau de bord-->

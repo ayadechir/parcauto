@@ -41,9 +41,7 @@ $result_di = $conn->query($sql_di);
             <div class="header-left">
             </div>
             <div class="header-right">
-                <span><i class='bx bx-bell'></i></span>
-                <span><i class='bx bx-envelope'></i></span>
-                <span><i class='bx bx-user'></i></span>
+            <img src="../pictures/logo-naftal.png" alt="">
             </div>
         </header>
         <!-- Fin d'Entete -->
@@ -94,12 +92,7 @@ $result_di = $conn->query($sql_di);
                         <span class="text nav-text">Rapport d'Accident</span>
                     </a>
                 </li>
-                <li class="sidebar-list-item">
-                    <a href="parametre" target="_blank">
-                        <i class='bx bx-cog icon' ></i>
-                        <span class="text nav-text">Paramétres</span>
-                    </a>
-                </li>
+
             </ul>
         </aside>
         <main class="main-container">    

@@ -166,7 +166,7 @@ tbody {
 }
 
 td {
-    
+    border-radius: 15px;
     padding: 5px;
     font-size: 14px;
     color: #333;
@@ -193,4 +193,7 @@ tfoot td {
 .data-row{
     border-radius: 15px;
     margin:10px;
+}
+td i{
+  font-size: 23px;
 }

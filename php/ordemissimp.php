@@ -12,23 +12,11 @@ try {
     $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
     
     // Requête pour récupérer toutes les demandes par défaut
-    $query_demande_v = "SELECT * FROM demande_v WHERE flag = 1";
-    $stmt = $pdo->prepare($query_demande_v);
+    $query_ordremiss = "SELECT * FROM ordre_mission WHERE flag = 1";
+    $stmt = $pdo->prepare($query_ordremiss);
     $stmt->execute();
-    $result_demande_v = $stmt->fetchAll(PDO::FETCH_ASSOC);
+    $query_ordremiss = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
-
-    //requete pour récuperer les véhicule
-    $query_véhicule="SELECT * FROM véhicule WHERE flag = 0" ;
-    $stmt_v= $pdo ->prepare($query_véhicule);
-    $stmt_v->execute();
-    $query_véhicule = $stmt_v->fetchAll(PDO::FETCH_ASSOC);
-
-    //requete selectionner les chauffeurs
-    $result_mat="SELECT * FROM employe WHERE role = 'c'";
-    $stmt_mat = $pdo->prepare($result_mat);
-    $stmt_mat->execute();
-    $result_mat = $stmt_mat->fetchAll(PDO::FETCH_ASSOC);
 
 
     $sqlt = "SELECT COUNT(*) as total_elements FROM demande_v WHERE flag = 0";
@@ -56,7 +44,7 @@ try {
     <!-- Montserrat Font -->
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@100;200;300;400;500;600;700;800;900&display=swap" rel="stylesheet">
     <!-- Custom CSS -->
-    <link rel="stylesheet" href="../css/demandeGest.css">
+    <link rel="stylesheet" href="../css/ordremissimp.css">
   </head>
   <body>
     <div class="grid-container">
@@ -131,89 +119,47 @@ try {
               <table>
                   <thead><!--header of table (title)-->
                       <tr>
-                          <th>Numéro de Demande</th>
-                          <th>Matricule</th>
-                          <th>Num de département</th>
-                          <th>Distance</th>
-                          <th>Date</th>
-                          <th></th>
-                          <th></th> 
-                          <th></th> 
+                          <th>Num d'OR</th>
+                          <th>nom_prenom</th>
+                          <th>matricule de chauffeur</th> 
+                          <th>adress_admin</th>
+                          <th>Destination</th>
+                          <th>Motif</th>
+                          <th>date_dep</th>
+                          <th>date_ret</th> 
+                          <th>matricule_véhicule</th>
+                          <th>Imprimer</th>
+                          
                       </tr>
                   </thead>
                   <tbody>
-                    <?php foreach ($result_demande_v as $demande) { ?>
-                      <tr class="data-row">   
-                          <td><?php echo $demande['id_demande']; ?></td> 
-                          <td><?php echo $demande['matricule']; ?></td>
-                          <td><?php echo $demande['num_departement']; ?></td>
-                          <td><?php echo $demande['distance']; ?></td>
-                          <td><?php echo $demande['date_deplacement']; ?></td>
-                          <td></td>   
-                          <td></td>                       
-                          <td class="btn"><button onclick="showtraitementTable('<?php echo $demande['id_demande']; ?>')" class="traitement">Traitement<i class='bx bx-cog'></i></button></td>
-                      </tr>
-                    <?php } ?>
-                  </tbody>
-                  <tfoot>
-                      <td colspan="9">Nombre de demande:<?php echo $rowt['total_elements']?></td>
-                  </tfoot>
-              </table>
-          </div>
-            <div id="myModal" class="modal">
-            <div class="modal-content" id="modal-content">
-              <span class="close">&times;</span>
-              <div id="véhicule" class="tabular--wrapper">
-                <h2>Véhicule Disponible</h2>
-            <div class="table-container">
-                <table>
-                            <thead>
-                                <tr>
-                                    <th>Matricule</th>
-                                    <th>Marque</th>
-                                    <th>Modéle</th>
-                                    <th>Puissance</th>
-                                    <th>Année</th>
-                                    <th>couleur</th>
-                                    <th>Chauffeur</th>
-                                    <th colspan="2">Action</th>
-                                    
-                                </tr>
-                            </thead>
-                            <tbody>
-                            <?php foreach ($query_véhicule as $véhicule) { ?>
+                  <tbody>
+                            <?php foreach ($query_ordremiss as $or) { ?>
                               <form method="post" action="">
-                              <input type="hidden" name="id_demande" class="id_demande">
                                 <tr class="data-row">   
-                                <td><?php echo $véhicule['matricule_v']; ?></td>
-                                <td><?php echo $véhicule['marque']; ?></td>
-                                <td><?php echo $véhicule['modele']; ?></td>
-                                <td><?php echo $véhicule['puissance']; ?></td>   
-                                <td><?php echo $véhicule['anne_v']; ?></td>                       
-                                <td><?php echo $véhicule['couleur']; ?></td> 
-                                <td><select name="matricule_chauff_<?php echo $véhicule['matricule_v']; ?>">
-                                    <?php foreach ($result_mat as $chauffeur) { ?>
-                                    <option value="<?php echo $chauffeur['matricule']; ?>"><?php echo $chauffeur['nom']; ?> <?php echo $chauffeur['prenom']; ?></option>
-                                    <?php } ?>
-                                    </select>
-                                    </td>
-                                <td></td>            
-                                <td class="btn"><button class="selection" id="selection" name="trait" value="<?php echo $véhicule['matricule_v']; ?>">Selectionner</button>
-                                 </td>
-                                
+                                <td><?php echo $or['id_or']; ?></td>
+                                <td><?php echo $or['nom_prenom']; ?></td>
+                                <td><?php echo $or['matricule']; ?></td>    
+                                <td><?php echo $or['adress_admin']; ?></td>
+                                <td><?php echo $or['emplacement']; ?></td>   
+                                <td><?php echo $or['raison']; ?></td>                       
+                                <td><?php echo $or['date_dep']; ?></td> 
+                                <td><?php echo $or['date_ret']; ?></td>
+                                <td><?php echo $or['matricule_v']; ?></td>
+                                <td><button class="obser" onclick="showOr('<?php echo $or['id_or']; ?>', 
+                                '<?php echo $or['nom_prenom']; ?>', '<?php echo $or['matricule']; ?>','<?php echo $or['adress_admin']; ?>',
+                                 '<?php echo $or['emplacement']; ?>', '<?php echo $or['raison']; ?>', '<?php echo $or['date_dep']; ?>',
+                                 '<?php echo $or['date_ret']; ?>','<?php echo $or['matricule_v']; ?>')"name="print" id="print"><i class='bx bx-printer'></i></button></td>
                                 </tr>
                             <?php } ?>
                             </tbody>
                             <tfoot>
-                                <td colspan="9"></td>
-                            </tfoot>
-                </table>
-                <footer><button class="en-attente" id="en-attente" name="en-attente">En attente</button></footer>
-                </form>
-            </div>
-              </div>
-            </div>
-            </div>
+                  <tfoot>
+                      <td colspan="10">Nombre d'or':<?php echo $rowt['total_elements']?></td>
+                  </tfoot>
+              </table>
+          </div>
+
     </main>
 
     <!-- Scripts -->

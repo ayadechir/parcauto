@@ -65,9 +65,7 @@ if(isset($_SESSION['username'])) {
       <div class="header-left">
       </div>
       <div class="header-right">
-        <span><i class='bx bx-bell'></i></span>
-        <span><i class='bx bx-envelope'></i></span>
-        <span><i class='bx bx-user'></i></span>
+      <img src="../pictures/logo-naftal.png" alt="">
       </div>
     </header>
     <!-- Fin d'Entete -->
@@ -85,7 +83,7 @@ if(isset($_SESSION['username'])) {
         <li class="sidebar-list-item">
           <a href="moncompte.php" target="_self">
             <i class='bx bx-git-pull-request icon'></i>
-            <span class="text nav-text">Mon compte</span>
+            <span class="text nav-text">Profile</span>
           </a>
         </li>
         <li class="sidebar-list-item">

@@ -1,6 +1,32 @@
 <?php
 session_start();
 $username = isset($_SESSION['username']) ? $_SESSION['username'] : null;
+
+
+$servername = "localhost";
+$username = "root";
+$password = "";
+$dbname = "parc_auto";
+
+try {
+    // Connexion à la base de données
+    $conn = new PDO("mysql:host=$servername;dbname=$dbname", $username, $password);
+    $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+} catch (PDOException $e) {
+    showErrorAlert("La connexion a échoué : " . $e->getMessage());
+}  
+
+
+
+$sql = "SELECT matricule FROM employe WHERE username = :username";
+$stmt = $conn->prepare($sql);
+$stmt->bindParam(':username', $username);
+$stmt->execute();
+
+// Requête pour récupérer les données de la table employe
+$sql_mat = "SELECT id_demande FROM demande_v WHERE matricule =:matricule";
+$result_mat = $conn->query($sql_mat);
+
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -10,7 +36,7 @@ $username = isset($_SESSION['username']) ? $_SESSION['username'] : null;
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css"/>
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@10/dist/sweetalert2.min.css">
   <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
-  <title>Page Demandeur -Demande de véhicule-</title>
+  <title>profile</title>
   <!-- Montserrat Font -->
   <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@100;200;300;400;500;600;700;800;900&display=swap" rel="stylesheet">
   <!-- Custom CSS -->
@@ -24,11 +50,10 @@ $username = isset($_SESSION['username']) ? $_SESSION['username'] : null;
         <span class="material-icons-outlined">menu</span>
       </div>
       <div class="header-left">
+      <h1>Bienvenue "<?php echo $username; ?>"</h1>
       </div>
       <div class="header-right">
-        <span><i class='bx bx-bell'></i></span>
-        <span><i class='bx bx-envelope'></i></span>
-        <span><i class='bx bx-user'></i></span>
+      <img src="../pictures/logo-naftal.png" alt="">
       </div>
     </header>
     <!-- Fin d'Entete -->
@@ -45,13 +70,13 @@ $username = isset($_SESSION['username']) ? $_SESSION['username'] : null;
       <ul class="sidebar-list">
         <li class="sidebar-list-item">
           <a href="moncompte.php" target="_self">
-            <i class='bx bx-git-pull-request icon'></i>
-            <span class="text nav-text">Mon compte</span>
+          <i class='bx bx-user icon'></i>
+            <span class="text nav-text">Profile</span>
           </a>
         </li>
         <li class="sidebar-list-item">
           <a href="../php/demandeur.php" target="_self">
-            <i class='bx bx-user icon'></i>
+            <i class='bx bx-git-pull-request icon'></i>
             <span class="text nav-text">Demande de véhicule</span>
           </a>
         </li>
@@ -64,7 +89,6 @@ $username = isset($_SESSION['username']) ? $_SESSION['username'] : null;
       </ul>
     </aside>
     <main class="main-container">    
-    <h1>Bienvenue "<?php echo $username; ?>"</h1>
     <table>
                   <thead><!--header of table (title)-->
                       <tr>
@@ -72,30 +96,22 @@ $username = isset($_SESSION['username']) ? $_SESSION['username'] : null;
                       </tr>
                   </thead>
                   <tbody>
-                      <tr class="data-row">   
-                          <td>AZERR</td> 
-                          <td>AZERR</td>
-                          <td>AZERR</td>
-                          <td>AZERR</td>
-                          <td>AZERR</td>                      
+                      <tr  class="data-row">   
+                        <td colspan="5" style="background-color:crimson;color:aliceblue;"><h2>Votre Demande effectué 23/02/2024 a été refusée<i class='bx bx-x'></i></h2> </td>                  
                       </tr>
                       <tr class="data-row">   
-                          <td>AZERR</td> 
-                          <td>AZERR</td>
-                          <td>AZERR</td>
-                          <td>AZERR</td>
-                          <td>AZERR</td>                      
+                      <td colspan="5" style="background-color:lightgreen;
+                      color:aliceblue;"><h2>Votre Demande effectué 23/12/2023 a été accéptée<i class='bx bx-check' ></i></h2>
+                      <h3>Votre chauffeur:Hakim Mohammed   Votre véhicule: clio 12</h3>
+                   </td>                      
                       </tr>
                    
                   </tbody>
+                  <tfoot>
+                  
+                  </tfoot>
               </table>
-    
-		<p id="content"><p></p></h1>
-		<p></p>
-		<p></p>		
-		<p></p>
-         
-
+  
     </main>
 
     <!-- Scripts -->

@@ -43,13 +43,6 @@ $dbname = "parc_auto";
         $resultt = $conn->query($sqlt);
         $rowt = $resultt->fetch(PDO::FETCH_ASSOC);
 
-        // Si le formulaire de recherche est soumis
-        if(isset($_POST["search"])) {
-        $matricule_v = $_POST["search"];
-            // Requête de recherche des véhicules par matricule
-        $query_search = "SELECT * FROM véhicule WHERE matricule_v LIKE '%$matricule_v%'";
-        $result_vehicules = $conn->query($query_search);
-        }
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -73,9 +66,10 @@ $dbname = "parc_auto";
                 <span class="material-icons-outlined">menu</span>
             </div>
             <div class="header-left">
+                <h2>Suivi Véhicule</h2>
             </div>
             <div class="header-right">
-            
+            <img src="../pictures/logo-naftal.png" alt="">
             </div>
         </header>
         <!-- Fin d'Entete -->
@@ -89,7 +83,7 @@ $dbname = "parc_auto";
             </div>
             <ul class="sidebar-list">
                 <li class="sidebar-list-item">
-                    <a href="dashboardGest.html" target="_self">
+                    <a href="dashboardGest.php" target="_self">
                         <i class='bx bxs-dashboard icon'></i>
                         <span class="text nav-text">Tableau de Bord</span>
                     </a>
@@ -125,12 +119,6 @@ $dbname = "parc_auto";
                     <span class="text nav-text">Rapport d'Accident</span>
             </a>
           </li>
-          <li class="sidebar-list-item">
-            <a href="parametre" target="_self">
-              <i class='bx bx-cog icon' ></i>
-                <span class="text nav-text">Paramétres</span>
-            </a>
-          </li>
                 <!-- Autres éléments du menu ici -->
             </ul>
         </aside>
@@ -140,14 +128,14 @@ $dbname = "parc_auto";
             <!-- Formulaire de recherche -->
             <form method="post" action="">
                 <div class="search">
-                    <input autocomplete="off"type="text" name="search" id="search" placeholder="Recherche par Matricule....">
+                    <input autocomplete="off"type="text" name="search" id="search" oninput="searchTable()" placeholder="Recherche par Matricule....">
                     <button type="submit"><i class='bx bx-search-alt'></i></button>
                 </div>
             </form>  
             
             <!-- Tableau des véhicules -->
             <div class="table-container">
-                <table>
+                <table id="tableV">
                     <thead>
                         <tr>
                             <th>Matricule</th>
@@ -285,8 +273,8 @@ $dbname = "parc_auto";
             <!--MODAL DE MODIFICATION-->
             <div id="edit" class="modal">
                 <div class="modal-content" id="modal-edit">
-                 <span class="close">&times;</span>
-                 <h3>Modifie les véhicule</h3>
+                 <span class="close"><i class='bx bx-x-circle'></i></span>
+                 <h2 style="color:#004c85;">Modifie les véhicules</h2>
                  <div class="table-container">
                  <table>
                 <thead>
@@ -492,19 +480,6 @@ $dbname = "parc_auto";
         //Si le formulaire de modification est soumis
     if(isset($_POST["edit-btn"])) {
     // Vérification si les champs sont vides
-    if(empty($_POST['matricule_v']) || empty($_POST['marque']) || empty($_POST['modele']) || empty($_POST['flag']) ||
-    empty($_POST['puissance'])|| empty($_POST['anne_v'])|| empty($_POST['couleur'])|| empty($_POST['km_actuel'])) {
-        echo '<script>
-        Swal.fire({
-            title: "Veuillez remplir tous les champs.",
-            icon: "warning",
-            confirmButtonText: "OK",
-            customClass: {
-                confirmButton: "btn btn-primary"
-            }
-        });
-      </script>';
-    } else {
         try {
             // Assurez-vous que $conn est accessible ici
             if(!isset($conn)) {
@@ -561,7 +536,7 @@ $dbname = "parc_auto";
           </script>';
         }
     }
-}
+
 
 function showErrorAlert($message) {
     echo '<script>

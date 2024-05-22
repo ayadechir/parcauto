@@ -16,6 +16,32 @@ function closeSidebar() {
   }
 }
 
+// Date de départ (aujourd'hui)
+var joursRestants = 30; // Nombre de jours à décrémenter
+
+// Fonction pour décrémenter les jours et mettre à jour la carte HTML
+function decrementerJours() {
+    // Afficher les jours restants dans la carte HTML
+    document.getElementById("compte-a-rebours").textContent = "Jours restants : " + joursRestants;
+
+    // Décrémenter le nombre de jours restants
+    joursRestants--;
+
+    // Vérifier si le compte à rebours est terminé
+    if (joursRestants < 0) {
+        // Arrêter le timer
+        clearInterval(timer);
+        document.getElementById("compte-a-rebours").textContent = "Le compte à rebours est terminé !";
+    }
+}
+
+// Appeler la fonction decrementerJours() immédiatement pour initialiser l'affichage
+decrementerJours();
+
+// Appeler la fonction decrementerJours() toutes les secondes
+var timer = setInterval(decrementerJours, 1000);
+
+
 
 
 

@@ -58,11 +58,10 @@ if(isset($_POST['matricule'])) {
                 <span class="material-icons-outlined">menu</span>
             </div>
             <div class="header-left">
+                Ordres Missions
             </div>
             <div class="header-right">
-                <span><i class='bx bx-bell'></i></span>
-                <span><i class='bx bx-envelope'></i></span>
-                <span><i class='bx bx-user'></i></span>
+            <img src="../pictures/logo-naftal.png" alt="">
             </div>
         </header>
         <!-- Fin d'Entete -->
@@ -112,12 +111,6 @@ if(isset($_POST['matricule'])) {
                     <a href="RA" target="_blank">
                         <i class='bx bxs-car-crash icon'></i>
                         <span class="text nav-text">Rapport d'Accident</span>
-                    </a>
-                </li>
-                <li class="sidebar-list-item">
-                    <a href="parametre" target="_blank">
-                        <i class='bx bx-cog icon' ></i>
-                        <span class="text nav-text">Paramétres</span>
                     </a>
                 </li>
  

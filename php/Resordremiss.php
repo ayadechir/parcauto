@@ -57,11 +57,10 @@ try {
           <span class="material-icons-outlined">menu</span>
         </div>
         <div class="header-left">
+          Ordres Missions
         </div>
         <div class="header-right">
-          <span><i class='bx bx-bell'></i></span>
-          <span><i class='bx bx-envelope'></i></span>
-          <span><i class='bx bx-user'></i></span>
+        <img src="../pictures/logo-naftal.png" alt="">
         </div>
       </header>
       <!-- Fin d'Entete -->
@@ -103,19 +102,13 @@ try {
           <li class="sidebar-list-item">
             <a href="suiviv.php" target="_self">
               <i class='bx bxs-car-mechanic icon'></i>
-                    <span class="text nav-text">Suivi de Véhicule</span>
+                    <span class="text nav-text">Liste Des véhicules</span>
             </a>
           </li>
           <li class="sidebar-list-item">
             <a href="RA" target="_self">
               <i class='bx bxs-car-crash icon'></i>
-                    <span class="text nav-text">Rappor d'Accident</span>
-            </a>
-          </li>
-          <li class="sidebar-list-item">
-            <a href="parametre" target="_self">
-              <i class='bx bx-cog icon' ></i>
-                <span class="text nav-text">Paramétres</span>
+                    <span class="text nav-text">Rapport d'Accident</span>
             </a>
           </li>
         </ul>

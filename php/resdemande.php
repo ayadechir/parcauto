@@ -12,7 +12,7 @@ try {
     $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
     
     // Requête pour récupérer toutes les demandes par défaut
-    $query_demande_v = "SELECT * FROM demande_v WHERE flag = 2";
+    $query_demande_v = "SELECT * FROM demande_v WHERE flag = 4";
     $stmt = $pdo->prepare($query_demande_v);
     $stmt->execute();
     $result_demande_v = $stmt->fetchAll(PDO::FETCH_ASSOC);
@@ -31,7 +31,7 @@ try {
     $result_mat = $stmt_mat->fetchAll(PDO::FETCH_ASSOC);
 
 
-    $sqlt = "SELECT COUNT(*) as total_elements FROM demande_v WHERE flag = 2";
+    $sqlt = "SELECT COUNT(*) as total_elements FROM demande_v WHERE flag = 4";
     $resultt = $pdo->query($sqlt);
     $rowt = $resultt->fetch(PDO::FETCH_ASSOC);
 } catch(PDOException $e) {
@@ -66,11 +66,10 @@ try {
           <span class="material-icons-outlined">menu</span>
         </div>
         <div class="header-left">
+          Demande de Véhicules
         </div>
         <div class="header-right">
-          <span><i class='bx bx-bell'></i></span>
-          <span><i class='bx bx-envelope'></i></span>
-          <span><i class='bx bx-user'></i></span>
+        <img src="../pictures/logo-naftal.png" alt="">
         </div>
       </header>
       <!-- Fin d'Entete -->
@@ -104,7 +103,7 @@ try {
             </a>
           </li>
           <li class="sidebar-list-item">
-            <a href="Ordremiss.php" target="_self">
+            <a href="Resordremiss.php" target="_self">
               <i class='bx bx-list-check icon'></i>
                     <span class="text nav-text">Ordres de Mission</span>
             </a>
@@ -112,21 +111,16 @@ try {
           <li class="sidebar-list-item">
             <a href="suiviv.php" target="_self">
               <i class='bx bxs-car-mechanic icon'></i>
-                    <span class="text nav-text">Suivi de Véhicule</span>
+                    <span class="text nav-text">Liste Des véhicules</span>
             </a>
           </li>
           <li class="sidebar-list-item">
             <a href="RA" target="_self">
               <i class='bx bxs-car-crash icon'></i>
-                    <span class="text nav-text">Rappor d'Accident</span>
+                    <span class="text nav-text">Rapport d'Accident</span>
             </a>
           </li>
-          <li class="sidebar-list-item">
-            <a href="parametre" target="_self">
-              <i class='bx bx-cog icon' ></i>
-                <span class="text nav-text">Paramétres</span>
-            </a>
-          </li>
+
         </ul>
       </aside>
       <!-- fin de main -->
@@ -216,7 +210,7 @@ try {
                                 <td colspan="9"></td>
                             </tfoot>
                 </table>
-                <footer><button class="en-attente" id="en-attente" name="en-attente">En attente</button></footer>
+                <footer><button class="en-attente" id="en-attente" name="en-attente">Refusé</button></footer>
                 </form>
             </div>
               </div>
