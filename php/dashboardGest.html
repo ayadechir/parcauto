@@ -1,3 +1,44 @@
+<?php 
+$servername = "localhost";
+$username = "root";
+$password = "";
+$dbname = "parc_auto";
+
+try {
+    // Créer une connexion PDO
+    $pdo = new PDO("mysql:host=$servername;dbname=$dbname", $username, $password);
+    
+    // Configurer PDO pour générer des exceptions en cas d'erreurs SQL
+    $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+    
+    // Requête pour récupérer toutes les demandes par défaut
+    $query_demande_v = "SELECT * FROM demande_v WHERE flag = 0";
+    $stmt = $pdo->prepare($query_demande_v);
+    $stmt->execute();
+    $result_demande_v = $stmt->fetchAll(PDO::FETCH_ASSOC);
+
+
+    //requete pour récuperer les véhicule
+    $query_véhicule="SELECT * FROM véhicule WHERE flag = 1" ;
+    $stmt_v= $pdo ->prepare($query_véhicule);
+    $stmt_v->execute();
+    $query_véhicule = $stmt_v->fetchAll(PDO::FETCH_ASSOC);
+
+    //requete selectionner les chauffeurs
+    $result_mat="SELECT * FROM employe WHERE role = 'c'";
+    $stmt_mat = $pdo->prepare($result_mat);
+    $stmt_mat->execute();
+    $result_mat = $stmt_mat->fetchAll(PDO::FETCH_ASSOC);
+
+
+    $sqlt = "SELECT COUNT(*) as total_elements FROM demande_v WHERE flag = 0";
+    $resultt = $pdo->query($sqlt);
+    $rowt = $resultt->fetch(PDO::FETCH_ASSOC);
+} catch(PDOException $e) {
+    // En cas d'erreur de connexion
+    die("La connexion a échoué: " . $e->getMessage());
+}
+?>
 <!DOCTYPE html>
 <html lang="en">
   <head>
@@ -9,7 +50,7 @@
     <!-- Montserrat Font -->
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@100;200;300;400;500;600;700;800;900&display=swap" rel="stylesheet">
     <!-- Custom CSS -->
-    <link rel="stylesheet" href="dashboardGest.css">
+    <link rel="stylesheet" href="../css/dashboardGest.css">
   </head>
   <body>
     <div class="grid-container">
@@ -32,7 +73,7 @@
       <aside id="sidebar"> 
               <div class="sidebar-title">
                 <div class="sidebar-brand">
-                    <img src="logo-naftal.png" alt="">
+                    <img src="../pictures/logo-naftal.png" alt="">
                 </div>
                     <span class="material-icons-outlined" onclick="closeSidebar()">close</span>
               </div>
@@ -92,35 +133,35 @@
 
       <!-- Main -->
       <!--Table de bord-->
-      <main class="main-container" style="display: none;">
+      <main class="main-container" >
         <div class="main-cards">
 
           <div class="card">
             <div class="card-inner">
-              <h3>PRODUCTS inventory_2</h3>
+              <h3>Demande de véhicule</h3>
             </div>
-            <h1>249</h1>
+            <h1></h1>
           </div>
 
           <div class="card">
             <div class="card-inner">
-              <h3>CATEGORIES category</h3> 
+              <h3></h3> 
             </div>
-            <h1>25</h1>
+            <h1></h1>
           </div>
 
           <div class="card">
             <div class="card-inner">
-              <h3>CUSTOMERS groups</h3>
+              <h3></h3>
             </div>
-            <h1>1500</h1>
+            <h1></h1>
           </div>
 
           <div class="card">
             <div class="card-inner">
-              <h3>ALERTS notification_important</h3>
+              <h3></h3>
             </div>
-            <h1>56</h1>
+            <h1></h1>
           </div>
 
         </div>
@@ -128,12 +169,12 @@
         <div class="charts">
 
           <div class="charts-card">
-            <h2 class="chart-title">Top 5 Products</h2>
+            <h2 class="chart-title"></h2>
             <div id="bar-chart"></div>
           </div>
 
           <div class="charts-card">
-            <h2 class="chart-title">Purchase and Sales Orders</h2>
+            <h2 class="chart-title"></h2>
             <div id="area-chart"></div>
           </div>
 

@@ -194,3 +194,17 @@ footer{
 form h3{
   color: crimson;
 }
+/* CSS pour cacher le reste de la page lors de l'impression */
+@media print {
+  body * {
+      visibility: hidden;
+  }
+  #form-container, #form-container * {
+      visibility: visible;
+  }
+  #form-container {
+      position: absolute;
+      left: 0;
+      top: 0;
+  }
+}

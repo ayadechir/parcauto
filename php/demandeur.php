@@ -1,3 +1,46 @@
+<?php
+session_start();
+
+// Vérifier si l'utilisateur est connecté
+if(isset($_SESSION['username'])) {
+    // Récupérer le nom d'utilisateur de la session
+    $username = $_SESSION['username'];
+
+    // Connexion à la base de données
+    $servername = "localhost";
+    $dbname = "parc_auto";
+    $username_db = "root";
+    $password_db = "";
+
+    try {
+        // Connexion à la base de données avec PDO
+        $conn = new PDO("mysql:host=$servername;dbname=$dbname", $username_db, $password_db);
+        $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+
+        // Requête SQL pour récupérer le matricule associé à l'utilisateur
+        $sql = "SELECT matricule,num_departement,nom,prenom FROM employe WHERE username = :username";
+        $stmt = $conn->prepare($sql);
+        $stmt->bindParam(':username', $username);
+        $stmt->execute();
+        
+        // Récupérer le résultat de la requête
+        $result = $stmt->fetch(PDO::FETCH_ASSOC);
+
+        // Vérifier si un résultat a été trouvé
+        if($result) {
+            $matricule = $result['matricule'];
+            $num_departement=$result['num_departement'];
+            $nom=$result['nom'];
+            $prenom=$result['prenom'];
+            } 
+    } catch(PDOException $e) {
+        echo "Erreur de connexion à la base de données : " . $e->getMessage();
+    }
+} else {
+    echo "L'utilisateur n'est pas connecté.";
+}
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -40,19 +83,19 @@
 
       <ul class="sidebar-list">
         <li class="sidebar-list-item">
-          <a href="moncompte.php" target="_blank">
+          <a href="moncompte.php" target="_self">
             <i class='bx bx-git-pull-request icon'></i>
             <span class="text nav-text">Mon compte</span>
           </a>
         </li>
         <li class="sidebar-list-item">
-          <a href="OM" target="_blank">
+          <a href="../demandeur.php" target="_self">
             <i class='bx bx-user icon'></i>
             <span class="text nav-text">Demande de véhicule</span>
           </a>
         </li>
         <li class="sidebar-list-item">
-          <a href="DI" target="_blank">
+          <a href="../php/deconnexion.php" target="_self">
             <i class='bx bx-wrench icon'></i>
             <span class="text nav-text">Deconnexion</span>
           </a>
@@ -73,13 +116,16 @@
               <option value="Non">Non</option>
             </select>
           </div>
+          <input autocomplete="off" type="hidden" name="matricule" id="matricule" value="<?php echo $matricule; ?>">
+          <input autocomplete="off" type="hidden" name="num_departement" id="num_departement" value="<?php echo $num_departement; ?>">
+          <input autocomplete="off" type="hidden" name="nom_prenom" id="nom_prenom" value="<?php echo $nom . '_' . $prenom; ?>">
         <div class="input">
           <label>De:</label>
           <input autocomplete="off"type="date" name="date_deplacement">
         </div>
         <div class="input">
           <label>a:</label>
-          <input autocomplete="off"type="date" name="date_deplacement">
+          <input autocomplete="off"type="date" name="date_de_retour">
         </div>
         <div class="input">
           <label>Distance:</label>
@@ -113,44 +159,30 @@
 </html>
 
 <?php
-$servername = "localhost";
-$username = "root";
-$password = "";
-$dbname = "parc_auto";
-
-try {
-  // Connexion à la base de données
-  $conn = new PDO("mysql:host=$servername;dbname=$dbname", $username, $password);
-  $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-} catch (PDOException $e) {
-  showErrorAlert("La connexion a échoué : " . $e->getMessage());
-}
-
 if (isset($_POST['Envoyer'])) {
   $matricule = $_POST['matricule'];
   $num_departement = $_POST['num_departement'];
-  $date_deplacement = $_POST['date_deplacement'];
+  $nom_prenom = $_POST['nom_prenom'];
+  $date_deplacement=$_POST['date_deplacement'];
   $distance = $_POST['distance'];
   $raison_deplacement = $_POST['raison_deplacement'];
+  $date_de_retour= $_POST['date_de_retour'];
   $avec_chauffeur=$_POST['avec_chauffeur'];
 
-  if (empty($matricule) || empty($num_departement) || empty($date_deplacement) || empty($distance) || empty($raison_deplacement)|| empty($avec_chauffeurvec)) {
+  if (empty($matricule) || empty($num_departement) ||empty($nom_prenom) ||empty($date_deplacement) || empty($date_de_retour) ||empty($distance) || empty($raison_deplacement)||  empty($avec_chauffeur)) {
     showErrorAlert("Veuillez remplir tous les champs.");
   } else {
-    // Vérifier si le véhicule existe dans la table véhicule
-    $stmt = $conn->prepare("SELECT COUNT(*) FROM departement WHERE num_departement = ?");
-    $stmt->execute([$num_departement]);
-    $countv = $stmt->fetchColumn();
 
-    if ($countv > 0) {
       try {
         // Préparation et exécution de la requête d'insertion
-        $sql = "INSERT INTO demande_v (matricule, num_departement, date_deplacement, distance, raison_deplacement,avec_chauffeur)
-                VALUES (:matricule, :num_departement, :date_deplacement, :distance, :raison_deplacement,:avec_chauffeur)";
+        $sql = "INSERT INTO demande_v (matricule,nom_prenom, num_departement, date_deplacement,date_de_retour, distance, raison_deplacement,avec_chauffeur)
+                VALUES (:matricule,:nom_prenom , :num_departement, :date_deplacement,:date_de_retour, :distance, :raison_deplacement,:avec_chauffeur)";
         $stmt = $conn->prepare($sql);
         $stmt->bindParam(':matricule', $matricule);
         $stmt->bindParam(':num_departement', $num_departement); 
+        $stmt->bindParam(':nom_prenom', $nom_prenom); 
         $stmt->bindParam(':date_deplacement', $date_deplacement);
+        $stmt->bindParam(':date_de_retour', $date_de_retour); 
         $stmt->bindParam(':distance', $distance);
         $stmt->bindParam(':raison_deplacement', $raison_deplacement);        
         $stmt->bindParam(':avec_chauffeur', $avec_chauffeur);
@@ -159,9 +191,6 @@ if (isset($_POST['Envoyer'])) {
       } catch (PDOException $e) {
         showErrorAlert("Une erreur est survenue lors de l'enregistrement : " . $e->getMessage());
       }
-    } else {
-      showErrorAlert("Le matricule ou le numéro de departement est faux");
-    }
   }
 }
 

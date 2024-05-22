@@ -137,9 +137,8 @@ body {
   
   .card {
     display: flex;
-    flex-direction: column;
-    justify-content: space-around;
-    padding: 25px;
+    justify-content:space-between;
+    padding: 20px;
     border-radius: 5px;
   }
   

@@ -1,4 +1,3 @@
-
 $(document).ready(function(){
     $(".suivi").click(function(){
       $("#myModal").fadeIn();
@@ -10,49 +9,60 @@ $(document).ready(function(){
 
 
   $(document).ready(function(){
-    $(".vidange").click(function(){
-      $("#vidange").fadeIn();
+    $(".edit").click(function(){
+      $("#edit").fadeIn();
     });
     $(".close").click(function(){
-      $("#vidange").fadeOut();
+      $("#edit").fadeOut();
     });
   });
 
-  function updateDate() {
-    var today = new Date();
-    var day = today.getDate();
-    var month = today.getMonth() + 1; // Les mois sont indexés à partir de 0
-    var year = today.getFullYear();
 
-    // Ajouter un zéro en tête si nécessaire pour avoir deux chiffres
-    if (day < 10) {
-        day = '0' + day;
-    }
-    if (month < 10) {
-        month = '0' + month;
-    }
 
-    var formattedDate = year + '-' + month + '-' + day;
-    document.getElementById('date').value = formattedDate;
-}
-
-// Mettre à jour la date lors du chargement de la page
-updateDate();
-
-  
+  $(document).ready(function(){
+    $(".di").click(function(){
+      $("#demande-intervention").fadeIn();
+    });
+    $(".close").click(function(){
+      $("#demande-intervention").fadeOut();
+    });
+  });
 
 
 
+  $(document).ready(function(){
+    $("#ajout").click(function(){
+      $("#add").fadeIn();
+    });
+    $(".close").click(function(){
+      $("#add").fadeOut();
+    });
+  });
 
 //Afficher le formulaire de suivi associé  
 function showSuiviForm(matricule_v) {
   // Afficher le formulaire de suivi avec l'identifiant unique
   $("#myModal").css("display", "block");
-  $("#matricule_v").val(matricule_v);
+  $(".matricule_v").val(matricule_v);
 }
 
-//Afficher le formulaire de Di vidange
-function showDiVidangeForm(matricule_v) {
-  $("#vidange").css("display", "block");
-  $("#matricule_v").val(matricule_v);
+//Afficher le tableau de modification
+function showEditTable(matricule_v,marque,modele,puissance,annee,couleur,km_actuel) {
+  $("#edit").css("display", "block");
+  $(".matricule_v").val(matricule_v);
+  $("#marque").val(marque);
+  $("#modele").val(modele);
+  $("#puissance").val(puissance);
+  $("#anne_v").val(annee);
+  $("#couleur").val(couleur);
+  $("#km_actuel").val(km_actuel);
 }
+
+//Afficher le formulaire de suivi associé  
+function showDiForm(matricule_v) {
+  // Afficher le formulaire de suivi avec l'identifiant unique
+  $("#demande-intervention").css("display", "block");
+  $(".matricule_v").val(matricule_v);
+}
+
+

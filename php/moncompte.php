@@ -14,7 +14,7 @@ $username = isset($_SESSION['username']) ? $_SESSION['username'] : null;
   <!-- Montserrat Font -->
   <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@100;200;300;400;500;600;700;800;900&display=swap" rel="stylesheet">
   <!-- Custom CSS -->
-  <link rel="stylesheet" href="../css/demandeur.css">
+  <link rel="stylesheet" href="../css/moncompte.css">
 </head>
 <body>
   <div class="grid-container">
@@ -44,19 +44,19 @@ $username = isset($_SESSION['username']) ? $_SESSION['username'] : null;
 
       <ul class="sidebar-list">
         <li class="sidebar-list-item">
-          <a href="moncompte.php" target="_blank">
+          <a href="moncompte.php" target="_self">
             <i class='bx bx-git-pull-request icon'></i>
             <span class="text nav-text">Mon compte</span>
           </a>
         </li>
         <li class="sidebar-list-item">
-          <a href="OM" target="_blank">
+          <a href="../php/demandeur.php" target="_self">
             <i class='bx bx-user icon'></i>
             <span class="text nav-text">Demande de véhicule</span>
           </a>
         </li>
         <li class="sidebar-list-item">
-          <a href="deconnexion.php" target="_blank">
+          <a href="deconnexion.php" target="_self">
             <i class='bx bx-wrench icon'></i>
             <span class="text nav-text">Deconnexion</span>
           </a>
@@ -65,6 +65,30 @@ $username = isset($_SESSION['username']) ? $_SESSION['username'] : null;
     </aside>
     <main class="main-container">    
     <h1>Bienvenue "<?php echo $username; ?>"</h1>
+    <table>
+                  <thead><!--header of table (title)-->
+                      <tr>
+                          <th colspan="5">Notification <i class='bx bxs-bell'></i></th>
+                      </tr>
+                  </thead>
+                  <tbody>
+                      <tr class="data-row">   
+                          <td>AZERR</td> 
+                          <td>AZERR</td>
+                          <td>AZERR</td>
+                          <td>AZERR</td>
+                          <td>AZERR</td>                      
+                      </tr>
+                      <tr class="data-row">   
+                          <td>AZERR</td> 
+                          <td>AZERR</td>
+                          <td>AZERR</td>
+                          <td>AZERR</td>
+                          <td>AZERR</td>                      
+                      </tr>
+                   
+                  </tbody>
+              </table>
     
 		<p id="content"><p></p></h1>
 		<p></p>
