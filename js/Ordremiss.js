@@ -1,33 +1,53 @@
 function imprimerPage() {
     window.print();
 }
+$(document).ready(function() {
+    $('#creer').click(function() {
+        $('#form-container').show();
+        $('#tabular--wrapper').hide();
+    });
+});
+$(document).ready(function() {
+    $('#imprime').click(function() {
+        $('#tabular--wrapper').show();
+        $('#form-container').hide();
+    });
+});
+$(document).ready(function(){
+    $(".print").click(function(){
+      $("#myModal").fadeIn();
+    });
+    $(".close").click(function(){
+      $("#myModal").fadeOut();
+    });
+  });
 
-function convertToPDF() {
-    // Créer un nouvel objet jsPDF
-    const doc = new jsPDF();
+function showOr(id_or,nom_prenom,matricule,adress_admin,emplacement,raison,date_dep,date_ret,matricule_v) {
+    $("#myModal").css("display", "block");
+    $(".id_or").val(id_or);
+    $("#nom_prenom_").val(nom_prenom);
+    $("#matricule_").val(matricule);
+    $("#adress_admin_").val(adress_admin);
+    $("#emplacement_").val(emplacement);
+    $("#raison_").val(raison);
+    $("#date_dep_").val(date_dep);
+    $("#date_ret_").val(date_ret);
+    $("#matricule_v_").val(matricule_v);
+  }
 
-    // Récupérer les valeurs des champs du formulaire
-    const nom_prenom = document.getElementById('nom_prenom').value;
-    const matricule = document.getElementById('matricule').value;
-    const adress_admin = document.getElementById('adress_admin').value;
-    const fonction = document.getElementById('fonction').value;
-    const moyen_deplacement = document.getElementById('moyen_deplacement').value;
-    const emplacement = document.getElementById('emplacement').value;
-    const raison = document.getElementById('raison').value;
-    const date_dep = document.getElementById('date_dep').value;
-    const date_ret = document.getElementById('date_ret').value;
 
-    // Ajouter le contenu au PDF
-    doc.text(20, 20, `Nom et Prénom: ${nom_prenom}`);
-    doc.text(20, 30, `Matricule: ${matricule}`);
-    doc.text(20, 40, `Adresse administratif: ${adress_admin}`);
-    doc.text(20, 50, `Fonction: ${fonction}`);
-    doc.text(20, 60, `Moyen de déplacement: ${moyen_deplacement}`);
-    doc.text(20, 70, `Destination: ${emplacement}`);
-    doc.text(20, 80, `Motif: ${raison}`);
-    doc.text(20, 90, `Date de déplacement: ${date_dep}`);
-    doc.text(20, 100, `Date de retour: ${date_ret}`);
 
-    // Télécharger le PDF
-    doc.save('formulaire.pdf');
+function formatDate(date) {
+  const day = String(date.getDate()).padStart(2, '0');
+  const month = String(date.getMonth() + 1).padStart(2, '0');
+  const year = date.getFullYear();
+  return `${day}/${month}/${year}`;
 }
+
+function setDate() {
+  const today = new Date();
+  const formattedDate = formatDate(today);
+  document.getElementById('dateInput').value = formattedDate;
+}
+
+document.addEventListener('DOMContentLoaded', setDate);

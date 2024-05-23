@@ -106,11 +106,11 @@ try {
             </a>
           </li>
           <li class="sidebar-list-item">
-            <a href="RA" target="_self">
-              <i class='bx bxs-car-crash icon'></i>
-                    <span class="text nav-text">Rapport d'Accident</span>
+            <a href="../php/users.php" target="_blank">
+            <i class='bx bx-plus'></i>
+                <span class="text nav-text">Gestion des utilsateurs</span>
             </a>
-          </li>
+        </li>
         </ul>
       </aside>
       <!-- fin de main -->

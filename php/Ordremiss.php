@@ -6,15 +6,25 @@ $dbname = "parc_auto";
 
 try {
     // Connexion à la base de données
-    $conn = new PDO("mysql:host=$servername;dbname=$dbname", $username, $password);
-    $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+    $pdo = new PDO("mysql:host=$servername;dbname=$dbname", $username, $password);
+    $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 } catch (PDOException $e) {
     showErrorAlert("La connexion a échoué : " . $e->getMessage());
 }  
 
 // Requête pour récupérer les données de la table employe
 $sql_mat = "SELECT matricule FROM employe";
-$result_mat = $conn->query($sql_mat);
+$result_mat = $pdo->query($sql_mat);
+
+// Requête pour récupérer toutes les demandes par défaut
+$query_ordremiss = "SELECT * FROM ordre_mission WHERE flag = 1";
+$stmt = $pdo->prepare($query_ordremiss);
+$stmt->execute();
+$query_ordremiss = $stmt->fetchAll(PDO::FETCH_ASSOC);
+
+$sqlt = "SELECT COUNT(*) as total_elements FROM demande_v WHERE flag = 0";
+$resultt = $pdo->query($sqlt);
+$rowt = $resultt->fetch(PDO::FETCH_ASSOC);
 
 // Traitement du formulaire
 if(isset($_POST['matricule'])) {
@@ -23,7 +33,7 @@ if(isset($_POST['matricule'])) {
 
     // Requête SQL pour récupérer les informations associées au matricule
     $query = "SELECT nom, prenom FROM employe WHERE matricule = :matricule";
-    $statement = $conn->prepare($query);
+    $statement = $pdo->prepare($query);
     $statement->bindParam(':matricule', $matricule);
     $statement->execute();
     
@@ -33,6 +43,7 @@ if(isset($_POST['matricule'])) {
     $prenom = $row['prenom'];
 }
 ?>
+
 
 
 <!DOCTYPE html>
@@ -116,8 +127,12 @@ if(isset($_POST['matricule'])) {
  
             </ul>
         </aside>
-        <main class="main-container">    
-        <div id="form-container">
+        <main class="main-container">
+        <div class="choose">
+        <button id="creer">Rédiger des Ordres de mission</button>
+        <button id="imprime">Imprimer les Ordres Mission Reçu</button>  
+        </div> 
+        <div id="form-container" style="display:none;">
             <form method="post" action="">
                 <h1>Ordre de Mission</h1>
                 <h3>Veuillez Remplir Tous les champs!</h3>
@@ -152,10 +167,82 @@ if(isset($_POST['matricule'])) {
                 </div>
                 <footer>
                     <button type="submit" name="Enregistrer">Enregistrer</button>
-                    <button onclick="imprimerPage()">Imprimer</button>
-                    <button onclick="convertToPDF()">Convertir en PDF</button>
                 </footer>
             </form>   
+        </div>
+        <div id="tabular--wrapper" style="display:none;">
+          <div class="table-container">
+            <h1>Les Demande de Véhicule</h1>
+            <table>
+              <thead><!--header of table (title)-->
+                <tr>
+                  <th>Num d'OR</th>
+                  <th>nom_prenom</th>
+                  <th>matricule de chauffeur</th> 
+                  <th>adress_admin</th>
+                  <th>Destination</th>
+                  <th>Motif</th>
+                  <th>date_dep</th>
+                  <th>date_ret</th> 
+                  <th>matricule_véhicule</th>
+                  <th>Imprimer</th>
+                </tr>
+              </thead>
+              <tbody>
+                <?php foreach ($query_ordremiss as $or) { ?>
+                  <form method="post" action="">
+                    <tr class="data-row">   
+                      <td><?php echo $or['id_or']; ?></td>
+                      <td><?php echo $or['nom_prenom']; ?></td>
+                      <td><?php echo $or['matricule']; ?></td>    
+                      <td><?php echo $or['adress_admin']; ?></td>
+                      <td><?php echo $or['emplacement']; ?></td>   
+                      <td><?php echo $or['raison']; ?></td>                       
+                      <td><?php echo $or['date_dep']; ?></td> 
+                      <td><?php echo $or['date_ret']; ?></td>
+                      <td><?php echo $or['matricule_v']; ?></td>
+                      <td><button type="button" class="print" onclick="showOr('<?php echo $or['id_or']; ?>', 
+                      '<?php echo $or['nom_prenom']; ?>', '<?php echo $or['matricule']; ?>','<?php echo $or['adress_admin']; ?>',
+                      '<?php echo $or['emplacement']; ?>', '<?php echo $or['raison']; ?>', '<?php echo $or['date_dep']; ?>',
+                      '<?php echo $or['date_ret']; ?>','<?php echo $or['matricule_v']; ?>')"><i class='bx bx-printer'></i></button></td>
+                    </tr>
+                  </form>
+                <?php } ?>
+              </tbody>
+              <tfoot>
+                <tr>
+                  <td colspan="10">Nombre d'OR: <?php echo $rowt['total_elements']; ?></td>
+                </tr>
+              </tfoot>
+            </table>
+          </div>
+          <div id="myModal" class="modal">
+            <div class="modal-content" id="modal-content">
+              <div class="close"><i class='bx bx-x-circle'></i></div>    
+              <div class="formulaire" id="formulaire">
+              <header><h2>Ordre de Mission</h2>
+                  <div class="logo">
+                  <img src="../pictures/logo-naftal.png" alt="">
+                  </div>
+                  </header>
+                <form method="post" action="">
+                  <label>Num d'Ordre de mission<input name="id_or" class="id_or"></label>
+                  <label>Nom prénom:<input name="nom_prenom_" id="nom_prenom_"></label>
+                  <label>Matricule de chauffeur:<input name="matricule_" id="matricule_"></label>
+                  <label>Adresse administratif:<input name="adress_admin_" id="adress_admin_"></label>
+                  <label>Destination:<input name="emplacement_" id="emplacement_" ></label>
+                  <label>Motif:<input name="raison_" id="raison_" ></label>
+                  <label>Date de départ:<input name="date_dep_" id="date_dep_" ></label>
+                  <label>Date de Retour:<input name="date_ret_" id="date_ret_" ></label>
+                  <label>Matricule de véhicule:<input name="matricule_v_" id="matricule_v_" ></label>
+                  <label>Rédiger le :<input type="text" id="dateInput" readonly></label>
+                </form>   
+              </div>
+              <footer>
+                    <button name="Imprimer" onclick="imprimerPage()">Imprimer</button>
+                  </footer>
+            </div>
+          </div>
         </div>
         </main>
     </div>
@@ -173,34 +260,7 @@ if(isset($_POST['matricule'])) {
 <script>
     function convertToPDF() {
         // Créer un nouvel objet jsPDF
-        const doc = new jsPDF();
 
-        // Récupérer les valeurs des champs du formulaire
-        const nom_prenom = document.getElementById('nom_prenom').value;
-        const matricule = document.getElementById('matricule').value;
-        const adress_admin = document.getElementById('adress_admin').value;
-        const fonction = document.getElementById('fonction').value;
-        const moyen_deplacement = document.getElementById('matricule_v').value;
-        const emplacement = document.getElementById('emplacement').value;
-        const raison = document.getElementById('raison').value;
-        const date_dep = document.getElementById('date_dep').value;
-        const date_ret = document.getElementById('date_ret').value;
-
-        // Ajouter le contenu au PDF
-        doc.text(20, 20, `Nom et Prénom: ${nom_prenom}`);
-        doc.text(20, 30, `Matricule: ${matricule}`);
-        doc.text(20, 40, `Adresse administratif: ${adress_admin}`);
-        doc.text(20, 50, `Fonction: ${fonction}`);
-        doc.text(20, 60, `Moyen de déplacement: ${moyen_deplacement}`);
-        doc.text(20, 70, `Destination: ${emplacement}`);
-        doc.text(20, 80, `Motif: ${raison}`);
-        doc.text(20, 90, `Date de déplacement: ${date_dep}`);
-        doc.text(20, 100, `Date de retour: ${date_ret}`);
-
-        // Télécharger le PDF
-        doc.save('ordre_de_mission.pdf');
-    }
-</script>
 
 </html>
 <?php
