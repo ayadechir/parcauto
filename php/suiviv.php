@@ -95,7 +95,7 @@ $dbname = "parc_auto";
             </a>
           </li>
           <li class="sidebar-list-item">
-            <a href="#BC" target="_self">
+            <a href="../php/bondecommande.php" target="_self">
               <i class='bx bx-receipt icon'></i>
                     <span class="text nav-text">Bon de Commande</span>
             </a>
@@ -255,7 +255,7 @@ $dbname = "parc_auto";
                 <div class="input"><label>Kilométrage de départ:</label><input autocomplete="off"type="number" name="km_dep"  maxlength="5"></div>
                 <div class="input"><label>Kilométrage de Retour:</label><input autocomplete="off"type="number" name="km_ret" maxlength="5"></label></div>
                 <div class="input"><label>Consommation carburant:</label><input autocomplete="off"type="number" name="consom_car" maxlength="5"></label></div>
-                <div class="input"><label>Date:</label><input type="text" id="dateInput" readonly></div>
+                <div class="input"><label>Date:</label><input type="text" name="date_s" id="dateInput" readonly></div>
                 <footer>
                 <button name="Terminer">Terminer</button>
                 </footer>
@@ -393,8 +393,8 @@ $dbname = "parc_auto";
             //Si le formulaire de Suivi est soumis 
         if(isset($_POST["Terminer"])) {
             // Vérification si les champs sont vides
-        if(empty($_POST['matricule_v']) || empty($_POST['km_dep']) || empty($_POST['km_ret']) || empty($_POST['consom_car']) ||
-        empty($_POST['date_s'])) {
+        if(empty($_POST['matricule_v']) || empty($_POST['km_dep']) || empty($_POST['km_ret']) || empty($_POST['consom_car'])
+       ) {
       echo '<script>
         Swal.fire({
             title: "Veuillez remplir tous les champs.",

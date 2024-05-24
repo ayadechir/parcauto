@@ -94,7 +94,7 @@ if(isset($_POST['matricule'])) {
                     </a>
                 </li>
                 <li class="sidebar-list-item">
-                    <a href="../php/demandeGest.php" target="_blank">
+                    <a href="../php/demandeGest.php" target="_self">
                         <i class='bx bx-git-pull-request icon'></i>
                         <span class="text nav-text">Demande de véhicule</span>
                     </a>

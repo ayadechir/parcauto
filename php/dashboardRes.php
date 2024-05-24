@@ -168,25 +168,18 @@ try {
             </a>
           </li>
           <li class="sidebar-list-item">
-            <a href="../php/Ordremiss.php" target="_self">
+            <a href="../php/Resordremiss.php" target="_self">
               <i class='bx bx-list-check icon'></i>
                     <span class="text nav-text">Ordres de Mission</span>
             </a>
           </li>
           <li class="sidebar-list-item">
-            <a href="../php/suiviv.php" target="_self">
+            <a href="../php/suivires.php" target="_self">
               <i class='bx bxs-car-mechanic icon'></i>
                     <span class="text nav-text">Liste Des véhicules</span>
             </a>
-          </li>
           <li class="sidebar-list-item">
-            <a href="RA" target="_self">
-              <i class='bx bxs-car-crash icon'></i>
-                    <span class="text nav-text">Rapport d'Accident</span>
-            </a>
-          </li>
-          <li class="sidebar-list-item">
-            <a href="ajoute" target="_blank">
+            <a href="../php/users.php" target="_blank">
             <i class='bx bx-plus'></i>
                 <span class="text nav-text">Gestion des utilsateurs</span>
             </a>

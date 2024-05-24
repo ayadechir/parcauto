@@ -72,37 +72,37 @@ try {
 
         <ul class="sidebar-list">
           <li class="sidebar-list-item">
-            <a href="TB" target="_blank">
+            <a href="#" target="_self">
               <i class='bx bxs-dashboard icon'></i>
                   <span class="text nav-text">Tableau de Bord</span>
             </a>
           </li>
           <li class="sidebar-list-item">
-            <a href="demandeGest.php" target="_blank">
+            <a href="demandeGest.php" target="_self">
               <i class='bx bx-git-pull-request icon'></i>
                   <span class="text nav-text">Demande de véhicule</span>
             </a>
           </li>
           <li class="sidebar-list-item">
-            <a href="#BC" target="_blank">
+            <a href="../php/bondecommande.php" target="_self">
               <i class='bx bx-receipt icon'></i>
                     <span class="text nav-text">Bon de Commande</span>
             </a>
           </li>
           <li class="sidebar-list-item">
-            <a href="Ordremiss.php" target="_blank">
+            <a href="Ordremiss.php" target="_self">
               <i class='bx bx-list-check icon'></i>
                     <span class="text nav-text">Ordres de Mission</span>
             </a>
           </li>
           <li class="sidebar-list-item">
-            <a href="suiviv.php" target="_blank">
+            <a href="suiviv.php" target="_self">
               <i class='bx bxs-car-mechanic icon'></i>
                     <span class="text nav-text">Suivi de Véhicule</span>
             </a>
           </li>
           <li class="sidebar-list-item">
-            <a href="RA" target="_blank">
+            <a href="RA" target="_self">
               <i class='bx bxs-car-crash icon'></i>
                     <span class="text nav-text">Rapport d'Accident</span>
             </a>
