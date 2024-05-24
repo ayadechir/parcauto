@@ -131,7 +131,7 @@ if(isset($_SESSION['username'])) {
         </div>
         <div class="input">
           <label>Destination:</label>
-          <input autocomplete="off"type="text" name="raison_deplacement" id="raison">
+          <input autocomplete="off"type="text" name="destination" id="destination">
         </div>
         <div class="input">
           <label>Motif:</label>
@@ -223,22 +223,24 @@ if (isset($_POST['Envoyer'])) {
   $date_deplacement=$_POST['date_deplacement'];
   $distance = $_POST['distance'];
   $raison_deplacement = $_POST['raison_deplacement'];
+  $destination = $_POST['destination'];
   $date_de_retour= $_POST['date_de_retour'];
   $avec_chauffeur=$_POST['avec_chauffeur'];
 
-  if (empty($matricule) || empty($num_departement) ||empty($nom_prenom) ||empty($date_deplacement) || empty($date_de_retour) ||empty($distance) || empty($raison_deplacement)||  empty($avec_chauffeur)) {
+  if (empty($matricule) || empty($num_departement) ||empty($nom_prenom) ||empty($date_deplacement) || empty($date_de_retour) ||empty($distance) || empty($raison_deplacement)|| empty($destination)||  empty($avec_chauffeur)) {
     showErrorAlert("Veuillez remplir tous les champs.");
   } else {
 
       try {
         // Préparation et exécution de la requête d'insertion
-        $sql = "INSERT INTO demande_v (matricule,nom_prenom, num_departement, date_deplacement,date_de_retour, distance, raison_deplacement,avec_chauffeur)
-                VALUES (:matricule,:nom_prenom , :num_departement, :date_deplacement,:date_de_retour, :distance, :raison_deplacement,:avec_chauffeur)";
+        $sql = "INSERT INTO demande_v (matricule,nom_prenom, num_departement, date_deplacement,destination,date_de_retour, distance, raison_deplacement,avec_chauffeur)
+                VALUES (:matricule,:nom_prenom , :num_departement, :date_deplacement,:destination,:date_de_retour, :distance, :raison_deplacement,:avec_chauffeur)";
         $stmt = $conn->prepare($sql);
         $stmt->bindParam(':matricule', $matricule);
         $stmt->bindParam(':num_departement', $num_departement); 
         $stmt->bindParam(':nom_prenom', $nom_prenom); 
         $stmt->bindParam(':date_deplacement', $date_deplacement);
+        $stmt->bindParam(':destination', $destination);
         $stmt->bindParam(':date_de_retour', $date_de_retour); 
         $stmt->bindParam(':distance', $distance);
         $stmt->bindParam(':raison_deplacement', $raison_deplacement);        
