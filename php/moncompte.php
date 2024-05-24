@@ -23,10 +23,6 @@ $stmt = $conn->prepare($sql);
 $stmt->bindParam(':username', $username);
 $stmt->execute();
 
-// Requête pour récupérer les données de la table employe
-$sql_mat = "SELECT id_demande FROM demande_v WHERE matricule =:matricule";
-$result_mat = $conn->query($sql_mat);
-
 ?>
 <!DOCTYPE html>
 <html lang="en">

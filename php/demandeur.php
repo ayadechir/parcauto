@@ -104,7 +104,7 @@ if(isset($_SESSION['username'])) {
     <!--nouveau Main-->
     <!--Demande de véhicule-->
     <main class="main-container">    
-      <form method="post" action="">
+    <form method="post" action="" onSubmit="return validateForm()">
       <div class="main">
         <h2>Demande de Véhicule</h2>
         <div class="input">
@@ -153,6 +153,65 @@ if(isset($_SESSION['username'])) {
     <script src="https://cdnjs.cloudflare.com/ajax/libs/apexcharts/3.35.5/apexcharts.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
+    <script>
+// Fonction de validation du formulaire
+function validateForm() {
+    // Récupérer les valeurs des champs date de départ et date de retour
+    var dateDepart = new Date(document.getElementsByName("date_deplacement")[0].value);
+    var dateRetour = new Date(document.getElementsByName("date_de_retour")[0].value);
+
+    // Vérifier si les années ne dépassent pas 4 chiffres
+    if (isNaN(dateDepart.getFullYear()) || isNaN(dateRetour.getFullYear()) || dateDepart.getFullYear() < 1000 || dateDepart.getFullYear() > 3000 || dateRetour.getFullYear() < 1000 || dateRetour.getFullYear() > 3000) {
+        // Afficher une alerte pour informer l'utilisateur de l'erreur
+        Swal.fire({
+            icon: 'error',
+            title: 'Erreur',
+            text: 'L\'année doit être comprise entre 1000 et 3000.'
+        });
+        // Empêcher l'envoi du formulaire
+        return false;
+    }
+
+    // Vérifier si le mois est entre 1 et 12
+    if (dateDepart.getMonth() < 0 || dateDepart.getMonth() > 11 || dateRetour.getMonth() < 0 || dateRetour.getMonth() > 11) {
+        // Afficher une alerte pour informer l'utilisateur de l'erreur
+        Swal.fire({
+            icon: 'error',
+            title: 'Erreur',
+            text: 'Le mois doit être compris entre 1 et 12.'
+        });
+        // Empêcher l'envoi du formulaire
+        return false;
+    }
+
+    // Vérifier si le jour est entre 1 et 31
+    if (dateDepart.getDate() < 1 || dateDepart.getDate() > 31 || dateRetour.getDate() < 1 || dateRetour.getDate() > 31) {
+        // Afficher une alerte pour informer l'utilisateur de l'erreur
+        Swal.fire({
+            icon: 'error',
+            title: 'Erreur',
+            text: 'Le jour doit être compris entre 1 et 31.'
+        });
+        // Empêcher l'envoi du formulaire
+        return false;
+    }
+
+    // Si la date de départ est supérieure ou égale à la date de retour
+    if (dateDepart >= dateRetour) {
+        // Afficher une alerte pour informer l'utilisateur de l'erreur
+        Swal.fire({
+            icon: 'error',
+            title: 'Erreur',
+            text: 'La date de départ doit être antérieure à la date de retour.'
+        });
+        // Empêcher l'envoi du formulaire
+        return false;
+    }
+    // Si la validation passe, permettre l'envoi du formulaire
+    return true;
+}
+</script>
+
 </body>
 </html>
 

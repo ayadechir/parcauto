@@ -249,20 +249,19 @@ $dbname = "parc_auto";
             <div class="modal-content" id="modal-content">
             <div class="close"><i class='bx bx-x-circle'></i></div>    
             <div class="formulaire">
-            <form method="post" action="">
+            <form method="post" action="" onSubmit="return validateForm()">
                 <header><h2>Suivi de véhicule</h2></header>
                 <input type="hidden" name="matricule_v" class="matricule_v">
                 <div class="input"><label>Kilométrage de départ:</label><input autocomplete="off"type="number" name="km_dep"  maxlength="5"></div>
                 <div class="input"><label>Kilométrage de Retour:</label><input autocomplete="off"type="number" name="km_ret" maxlength="5"></label></div>
                 <div class="input"><label>Consommation carburant:</label><input autocomplete="off"type="number" name="consom_car" maxlength="5"></label></div>
-                <div class="input"><label>Date:</label><input autocomplete="off"type="date" name="date_s"></div>
+                <div class="input"><label>Date:</label><input type="text" id="dateInput" readonly></div>
                 <footer>
                 <button name="Terminer">Terminer</button>
                 </footer>
             </form>   
             </div>
             </div>
-            
             </div>
             <!--FIN-MODAL-Suivi-->
             

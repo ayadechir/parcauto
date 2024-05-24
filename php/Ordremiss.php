@@ -133,7 +133,7 @@ if(isset($_POST['matricule'])) {
         <button id="imprime">Imprimer les Ordres Mission Reçu</button>  
         </div> 
         <div id="form-container" style="display:none;">
-            <form method="post" action="">
+        <form method="post" action="" onSubmit="return validateForm()">
                 <h1>Ordre de Mission</h1>
                 <h3>Veuillez Remplir Tous les champs!</h3>
                 <div class="input">
@@ -257,10 +257,6 @@ if(isset($_POST['matricule'])) {
     <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.3/jspdf.umd.min.js"></script>
-<script>
-    function convertToPDF() {
-        // Créer un nouvel objet jsPDF
-
 
 </html>
 <?php
@@ -293,7 +289,7 @@ if (isset($_POST['Enregistrer'])) {
                 // Préparation et exécution de la requête d'insertion
                 $sql = "INSERT INTO ordre_mission (matricule, nom_prenom, adress_admin, matricule_v,emplacement, date_dep, date_ret, raison) 
                         VALUES (:matricule, :nom_prenom, :adress_admin, :matricule_v,:emplacement, :date_dep, :date_ret, :raison)";
-                $stmt = $conn->prepare($sql);
+                $stmt = $pdo->prepare($sql);
                 $stmt->bindParam(':matricule', $matricule);
                 $stmt->bindParam(':nom_prenom', $nom_prenom);
                 $stmt->bindParam(':adress_admin', $adress_admin);

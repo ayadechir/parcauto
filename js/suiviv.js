@@ -90,3 +90,40 @@ function searchTable() {
     }
   }
 }
+
+
+// Fonction de validation du formulaire
+function validateForm() {
+    // Récupérer les valeurs des champs kilométrage de départ et kilométrage de retour
+    var kmDepart = parseInt(document.getElementsByName("km_dep")[0].value);
+    var kmRetour = parseInt(document.getElementsByName("km_ret")[0].value);
+
+    // Vérifier si le kilométrage de départ est supérieur ou égal au kilométrage de retour
+    if (kmDepart >= kmRetour) {
+        // Afficher une alerte pour informer l'utilisateur de l'erreur
+        Swal.fire({
+            icon: 'error',
+            title: 'Erreur',
+            text: 'Le kilométrage de départ doit être inférieur au kilométrage de retour.'
+        });
+        // Empêcher l'envoi du formulaire
+        return false;
+    }
+    // Si la validation passe, permettre l'envoi du formulaire
+    return true;
+}
+
+function formatDate(date) {
+  const day = String(date.getDate()).padStart(2, '0');
+  const month = String(date.getMonth() + 1).padStart(2, '0');
+  const year = date.getFullYear();
+  return `${day}/${month}/${year}`;
+}
+
+function setDate() {
+  const today = new Date();
+  const formattedDate = formatDate(today);
+  document.getElementById('dateInput').value = formattedDate;
+}
+
+document.addEventListener('DOMContentLoaded', setDate);

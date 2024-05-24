@@ -94,7 +94,7 @@ try {
             </a>
           </li>
           <li class="sidebar-list-item">
-            <a href="Ordremiss.php" target="_self">
+            <a href="#" target="_self">
               <i class='bx bx-list-check icon'></i>
                     <span class="text nav-text">Ordres de Mission</span>
             </a>
