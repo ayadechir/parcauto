@@ -51,10 +51,10 @@ if (isset($_POST['Connexion'])) {
                 $_SESSION['username'] = $username;
                 $_SESSION['mot_passe'] = $userData['mot_passe'];
                 $_SESSION['role'] = $userData['role'];
-                if (isset($_SESSION['role']) && $_SESSION['role'] == 'G'){
-                    header('Location:dashboardGest.html');
+                if (isset($_SESSION['role']) && $_SESSION['role'] == 'g'){
+                    header('Location:dashboardGest.php');
                 }elseif(isset($_SESSION['role']) && $_SESSION['role'] == 'r'){
-                    header('reponsabledash.html');
+                    header('Location:dashboardRes.php');
                 }elseif (isset($_SESSION['role']) && $_SESSION['role'] == 'chp'){
                     header('chefdeparc.html');
                 }else{

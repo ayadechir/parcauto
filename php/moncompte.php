@@ -39,7 +39,7 @@ if ($matricule) {
     $demandes = $stmt->fetchAll(PDO::FETCH_ASSOC);
 }
 
-// Vérifier les traitements pour chaque demande
+// Récupérer les traitements pour chaque demande
 $traitements = [];
 if ($demandes) {
     $sql = "SELECT * FROM traitement_cv WHERE id_demande IN (" . implode(',', array_column($demandes, 'id_demande')) . ")";
@@ -137,9 +137,18 @@ if ($demandes) {
                   <td><?php echo htmlspecialchars($demande['distance']); ?></td>
                   <td><?php echo htmlspecialchars($demande['raison_deplacement']); ?></td>
                   <td><?php echo htmlspecialchars($demande['date_insertion']); ?></td>
-                  <td>
+                  <td style="
                     <?php 
-                    if (isset($traitements[$demande['id_demande']])) {
+                    if ($demande['flag'] == 2) {
+                        echo 'background-color: lightcoral; color: white;';
+                    } else if (isset($traitements[$demande['id_demande']])) {
+                        echo 'background-color: lightgreen; color: white;';
+                    }
+                    ?>">
+                    <?php 
+                    if ($demande['flag'] == 2) {
+                        echo "Refusé";
+                    } else if (isset($traitements[$demande['id_demande']])) {
                         echo "Accepté";
                     } else {
                         echo "En attente";
