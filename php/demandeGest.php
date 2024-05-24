@@ -114,11 +114,11 @@ try {
             </a>
           </li>
           <li class="sidebar-list-item">
-            <a href="RA" target="_self">
-              <i class='bx bxs-car-crash icon'></i>
-                    <span class="text nav-text">Rapport d'Accident</span>
-            </a>
-          </li>
+          <a href="deconnexion.php" target="_self">
+          <i class='bx bx-log-out'></i>
+            <span class="text nav-text">Deconnexion</span>
+          </a>
+        </li>
         </ul>
       </aside>
       <!-- fin de main -->

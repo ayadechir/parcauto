@@ -88,12 +88,6 @@ try {
             </a>
           </li>
           <li class="sidebar-list-item">
-            <a href="#BC" target="_self">
-              <i class='bx bx-receipt icon'></i>
-                    <span class="text nav-text">Bon de Commande</span>
-            </a>
-          </li>
-          <li class="sidebar-list-item">
             <a href="#" target="_self">
               <i class='bx bx-list-check icon'></i>
                     <span class="text nav-text">Ordres de Mission</span>
@@ -106,10 +100,16 @@ try {
             </a>
           </li>
           <li class="sidebar-list-item">
-            <a href="../php/users.php" target="_blank">
+            <a href="../php/users.php" target="_self">
             <i class='bx bx-plus'></i>
                 <span class="text nav-text">Gestion des utilsateurs</span>
             </a>
+        </li>
+        <li class="sidebar-list-item">
+          <a href="deconnexion.php" target="_self">
+          <i class='bx bx-log-out'></i>
+            <span class="text nav-text">Deconnexion</span>
+          </a>
         </li>
         </ul>
       </aside>

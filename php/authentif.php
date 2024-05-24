@@ -55,8 +55,8 @@ if (isset($_POST['Connexion'])) {
                     header('Location:dashboardGest.php');
                 }elseif(isset($_SESSION['role']) && $_SESSION['role'] == 'r'){
                     header('Location:dashboardRes.php');
-                }elseif (isset($_SESSION['role']) && $_SESSION['role'] == 'chp'){
-                    header('chefdeparc.html');
+                }elseif (isset($_SESSION['role']) && $_SESSION['role'] == 'dr'){
+                    header('Location:directeur.php');
                 }else{
                     header('Location:moncompte.php');
                 }

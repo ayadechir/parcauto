@@ -90,7 +90,12 @@ try {
                   <span class="text nav-text">Demande de véhicule</span>
             </a>
           </li>
-
+          <li class="sidebar-list-item">
+          <a href="deconnexion.php" target="_self">
+          <i class='bx bx-log-out'></i>
+            <span class="text nav-text">Deconnexion</span>
+          </a>
+        </li>
         </ul>
       </aside>
       <!-- fin de main -->

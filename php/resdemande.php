@@ -109,16 +109,22 @@ try {
             </a>
           </li>
           <li class="sidebar-list-item">
-            <a href="suiviv.php" target="_self">
+            <a href="suivires.php" target="_self">
               <i class='bx bxs-car-mechanic icon'></i>
                     <span class="text nav-text">Liste Des véhicules</span>
             </a>
           </li>
           <li class="sidebar-list-item">
-            <a href="ajoute" target="_blank">
+            <a href="users.php" target="_self">
             <i class='bx bx-plus'></i>
                 <span class="text nav-text">Gestion des utilsateurs</span>
             </a>
+        </li>
+        <li class="sidebar-list-item">
+          <a href="deconnexion.php" target="_self">
+          <i class='bx bx-log-out'></i>
+            <span class="text nav-text">Deconnexion</span>
+          </a>
         </li>
 
         </ul>
