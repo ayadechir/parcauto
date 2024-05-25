@@ -72,31 +72,26 @@ foreach ($di_data as $row_di) {
             </div>
             <ul class="sidebar-list">
                 <li class="sidebar-list-item">
-                    <a href="dashboardGest.html" target="_self">
+                    <a href="dashboardRes.php" target="_self">
                         <i class='bx bxs-dashboard icon'></i>
                         <span class="text nav-text">Tableau de Bord</span>
                     </a>
                 </li>
                 <li class="sidebar-list-item">
-                    <a href="demandeGest.php" target="_self">
+                    <a href="resdemande.php" target="_self">
                         <i class='bx bx-git-pull-request icon'></i>
                         <span class="text nav-text">Demande de véhicule</span>
                     </a>
                 </li>
+ 
                 <li class="sidebar-list-item">
-                    <a href="#BC" target="_self">
-                        <i class='bx bx-receipt icon'></i>
-                        <span class="text nav-text">Bon de Commande</span>
-                    </a>
-                </li>
-                <li class="sidebar-list-item">
-                    <a href="Ordremiss.php" target="_self">
+                    <a href="resordremiss.php" target="_self">
                         <i class='bx bx-list-check icon'></i>
                         <span class="text nav-text">Ordres de Mission</span>
                     </a>
                 </li>
                 <li class="sidebar-list-item">
-                    <a href="suiviv.php" target="_self">
+                    <a href="#" target="_self">
                         <i class='bx bxs-car-mechanic icon'></i>
                         <span class="text nav-text">Liste Des véhicules</span>
                     </a>

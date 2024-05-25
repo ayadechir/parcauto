@@ -82,13 +82,13 @@ if(isset($_SESSION['username'])) {
       <ul class="sidebar-list">
         <li class="sidebar-list-item">
           <a href="moncompte.php" target="_self">
-            <i class='bx bx-git-pull-request icon'></i>
+          <i class='bx bx-user icon'></i>
             <span class="text nav-text">Profile</span>
           </a>
         </li>
         <li class="sidebar-list-item">
           <a href="../demandeur.php" target="_self">
-            <i class='bx bx-user icon'></i>
+          <i class='bx bx-git-pull-request icon'></i>
             <span class="text nav-text">Demande de véhicule</span>
           </a>
         </li>

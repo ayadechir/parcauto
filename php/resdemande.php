@@ -85,7 +85,7 @@ try {
 
         <ul class="sidebar-list">
           <li class="sidebar-list-item">
-            <a href="dashboardGest.html" target="_self">
+            <a href="dashboardRes.php" target="_self">
               <i class='bx bxs-dashboard icon'></i>
                   <span class="text nav-text">Tableau de Bord</span>
             </a>
@@ -94,12 +94,6 @@ try {
             <a href="#" target="_self">
               <i class='bx bx-git-pull-request icon'></i>
                   <span class="text nav-text">Demande de véhicule</span>
-            </a>
-          </li>
-          <li class="sidebar-list-item">
-            <a href="#BC" target="_self">
-              <i class='bx bx-receipt icon'></i>
-                    <span class="text nav-text">Bon de Commande</span>
             </a>
           </li>
           <li class="sidebar-list-item">

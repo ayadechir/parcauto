@@ -94,12 +94,7 @@ $dbname = "parc_auto";
                   <span class="text nav-text">Demande de véhicule</span>
             </a>
           </li>
-          <li class="sidebar-list-item">
-            <a href="#BC" target="_self">
-              <i class='bx bx-receipt icon'></i>
-                    <span class="text nav-text">Bon de Commande</span>
-            </a>
-          </li>
+
           <li class="sidebar-list-item">
             <a href="Resordremiss.php" target="_self">
               <i class='bx bx-list-check icon'></i>
@@ -152,6 +147,7 @@ $dbname = "parc_auto";
                             <th>Role</th>
                             <th>Num de département</th> 
                             <th>Fonction</th>  
+                            <th>Action</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -166,7 +162,12 @@ $dbname = "parc_auto";
                                 <td><?php echo $row['email']; ?></td>
                                 <td><?php echo $row['role']; ?></td>
                                 <td><?php echo $row['num_departement']; ?></td>   
-                                <td><?php echo $row['fonction']; ?></td>   
+                                <td><?php echo $row['fonction']; ?></td>  
+                                <td>
+                                <form method="post" action="">
+                                <button class="btn" name="del" id="del"
+                                 value="<?php echo $row['matricule']; ?>"><i class='bx bxs-x-square'></i></button>
+                                </form></td> 
                                 
                         </tr>
                         <?php  
@@ -174,7 +175,7 @@ $dbname = "parc_auto";
                     </tbody>
                     <tfoot>
                     <tr>
-                        <td colspan="6">Nombre de véhicules: <?php echo $rowt['total_elements']?></td>
+                        <td colspan="7">Nombre de véhicules: <?php echo $rowt['total_elements']?></td>
                         <td id="ajout">Ajouter des Véhicules<button><i class='bx bx-plus' ></i></button></td>
                     </tr>
                     </tfoot>
@@ -227,6 +228,7 @@ $dbname = "parc_auto";
         <!-- Scripts -->
     </div>
 </body>
+
 </html><?php
 
 
@@ -291,4 +293,51 @@ $dbname = "parc_auto";
     }
 }
                 }
+                if(isset($_POST['del'])){
+                    // Récupération des valeurs des champs du formulaire
+                    $matricule = $_POST['del']; // Ceci est correct car c'est le nom du champ
+            
+                    // Création de la confirmation avec SweetAlert
+    echo '<script>
+    Swal.fire({
+        title: "Êtes-vous sûr de vouloir supprimer cet employé ?",
+        icon: "warning",
+        showCancelButton: true,
+        confirmButtonColor: "#3085d6",
+        cancelButtonColor: "#d33",
+        confirmButtonText: "Oui, supprimer",
+        cancelButtonText: "Annuler"
+    }).then((result) => {
+        if (result.isConfirmed) {
+            // Si l/utilisateur confirme la suppression, exécuter la requête de suppression
+            var formData = new FormData();
+            formData.append("del", "' . $matricule . '"); // Ajout du matricule à FormData
+            fetch(window.location.href, {
+                method: "POST",
+                body: formData
+            }).then(response => {
+                if (response.ok) {
+                    // Si la suppression réussit, afficher un message de succès
+                    Swal.fire({
+                        title: "Supprimé !",
+                        text: "L\'employé a été supprimé avec succès.",
+                        icon: "success",
+                        confirmButtonText: "OK"
+                    }).then((result) => {
+                        // Recharger la page pour mettre à jour la liste des employés
+                        window.location.reload();
+                    });
+                } else {
+                    Swal.fire({
+                        title: "Erreur !",
+                        text: "Une erreur est survenue lors de la suppression de l\'employé.",
+                        icon: "error",
+                        confirmButtonText: "OK"
+                    });
+                }
+            });
+        }
+    });
+</script>';
+}
 ?>
